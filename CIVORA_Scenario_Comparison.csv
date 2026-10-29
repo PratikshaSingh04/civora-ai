@@ -1,0 +1,5 @@
+scenario,mean_prediction,median_prediction,minimum_prediction,maximum_prediction,mean_change_from_baseline,percentage_change_from_baseline,grids_increased,grids_decreased,grids_unchanged,percent_grids_increased,percent_grids_decreased
+Baseline,0.168666,0.057339,0.005484,0.836749,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+NDVI +20%,0.162553,0.06737,0.005635,0.839192,-0.006113,-3.624252,208.0,124.0,73.0,51.358025,30.617284
+Road Density -20%,0.165695,0.064137,0.005484,0.836749,-0.002971,-1.761513,72.0,34.0,299.0,17.777778,8.395062
+Building Density -20%,0.168176,0.054146,0.005484,0.836749,-0.00049,-0.290464,114.0,51.0,240.0,28.148148,12.592593

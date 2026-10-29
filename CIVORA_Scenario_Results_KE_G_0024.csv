@@ -1,0 +1,11 @@
+scenario,feature,multiplier,flood_probability,change,percentage_change,direction
+Baseline,None,1.0,0.5053718,0.0,0.0,No Change
+Increase NDVI by 10%,ndvi_mean,1.1,0.4996257,-0.00574609637260437,-1.137003779411316,Decrease
+Increase NDVI by 20%,ndvi_mean,1.2,0.4996257,-0.00574609637260437,-1.137003779411316,Decrease
+Increase NDVI by 30%,ndvi_mean,1.3,0.6003942,0.09502238035202026,18.80246925354004,Increase
+Reduce Road Density by 10%,road_density,0.9,0.5053718,0.0,0.0,No Change
+Reduce Road Density by 20%,road_density,0.8,0.5053718,0.0,0.0,No Change
+Reduce Road Density by 30%,road_density,0.7,0.474365,-0.031006813049316406,-6.135445594787598,Decrease
+Reduce Building Density by 10%,building_density,0.9,0.5053718,0.0,0.0,No Change
+Reduce Building Density by 20%,building_density,0.8,0.5053718,0.0,0.0,No Change
+Reduce Building Density by 30%,building_density,0.7,0.5053718,0.0,0.0,No Change

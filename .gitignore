@@ -1,0 +1,25 @@
+# Environment files and secrets
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+backend/venv/
+.pytest_cache/
+
+# Node.js and Vite
+node_modules/
+dist/
+frontend/node_modules/
+frontend/dist/
+
+# Local editor and operating system files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+*.log

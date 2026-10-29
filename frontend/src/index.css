@@ -1,0 +1,160 @@
+/* ============================================================
+   CIVORA AI — GLOBAL DESIGN SYSTEM & FOUNDATIONAL TOKENS
+   Executive Command-Center & Urban Digital Twin Theme
+   ============================================================ */
+
+:root {
+  /* High-Precision Typography */
+  --font-sans: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-heading: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  --sans: var(--font-sans);
+  --heading: var(--font-heading);
+  --mono: var(--font-mono);
+
+  /* Executive Dark Palette */
+  --bg-deepest: #05070c;
+  --bg-darkest: #07090e;
+  --bg-dark: #0a0e17;
+  --bg-surface: #0f1523;
+  --bg-surface-elevated: #141c2e;
+  --bg-surface-hover: #1b263b;
+  --bg-glass: rgba(15, 21, 35, 0.72);
+  --bg-glass-elevated: rgba(20, 28, 46, 0.85);
+
+  /* Precise Glass Borders */
+  --border-subtle: rgba(255, 255, 255, 0.07);
+  --border-medium: rgba(255, 255, 255, 0.12);
+  --border-bright: rgba(255, 255, 255, 0.22);
+  --border-accent: rgba(139, 92, 246, 0.45);
+  --border-cyan: rgba(6, 182, 212, 0.45);
+
+  /* High-Contrast Typography */
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+  --text-dim: #475569;
+
+  /* Radiant Accents */
+  --accent-purple: #8b5cf6;
+  --accent-purple-light: #a78bfa;
+  --accent-purple-glow: rgba(139, 92, 246, 0.35);
+  --accent-cyan: #06b6d4;
+  --accent-cyan-light: #38bdf8;
+  --accent-cyan-glow: rgba(6, 182, 212, 0.35);
+  --accent-emerald: #10b981;
+  --accent-emerald-light: #34d399;
+  --accent-amber: #f59e0b;
+  --accent-amber-light: #fbbf24;
+  --accent-rose: #f43f5e;
+  --accent-rose-light: #fb7185;
+
+  /* Dimensions */
+  --sidebar-width: 260px;
+  --topbar-height: 62px;
+
+  /* Layered Shadows */
+  --shadow-sm: 0 2px 8px -2px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  --shadow-md: 0 8px 24px -4px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  --shadow-lg: 0 16px 40px -8px rgba(0, 0, 0, 0.75), inset 0 1px 1px rgba(255, 255, 255, 0.1);
+  --shadow-glow-purple: 0 0 30px -5px rgba(139, 92, 246, 0.35);
+  --shadow-glow-cyan: 0 0 30px -5px rgba(6, 182, 212, 0.35);
+
+  color-scheme: dark;
+}
+
+/* Universal Reset & Optimization */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-family: var(--font-sans);
+  background-color: var(--bg-deepest);
+  color: var(--text-primary);
+  font-size: 14px;
+  line-height: 1.5;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg-deepest);
+  color: var(--text-primary);
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+#root {
+  width: 100%;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
+/* Monospace font settings for figures and data */
+code,
+pre,
+.font-mono,
+.telemetry-item strong,
+.hero-stat-row strong,
+.metric-box strong,
+.topbar-grid-chip strong {
+  font-family: var(--font-mono);
+  font-feature-settings: "tnum" 1, "cv02" 1, "cv03" 1;
+  letter-spacing: -0.01em;
+}
+
+/* Typography line breaking rules per modern web guidance */
+h1, h2, h3, h4, h5, h6 {
+  text-wrap: balance;
+  font-family: var(--font-heading);
+  letter-spacing: -0.025em;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+p, li, blockquote {
+  text-wrap: pretty;
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 9999px;
+  transition: background 0.2s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.14) transparent;
+}
+
+/* Selection */
+::selection {
+  background: rgba(139, 92, 246, 0.45);
+  color: #ffffff;
+}
+
+/* Focus Visible */
+:focus-visible {
+  outline: 2px solid var(--accent-purple);
+  outline-offset: 2px;
+}

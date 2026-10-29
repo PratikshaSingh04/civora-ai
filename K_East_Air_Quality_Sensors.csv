@@ -1,0 +1,242 @@
+location_id,location_name,latitude,longitude,sensor_id,parameter,units
+6945,"Kurla, Mumbai - MPCB",19.0863,72.8888,12289836,so2,ppb
+6945,"Kurla, Mumbai - MPCB",19.0863,72.8888,12235830,no,ppb
+6945,"Kurla, Mumbai - MPCB",19.0863,72.8888,12235834,pm25,µg/m³
+6945,"Kurla, Mumbai - MPCB",19.0863,72.8888,12235836,temperature,c
+6945,"Kurla, Mumbai - MPCB",19.0863,72.8888,12235835,relativehumidity,%
+6945,"Kurla, Mumbai - MPCB",19.0863,72.8888,12235829,co,ppb
+6945,"Kurla, Mumbai - MPCB",19.0863,72.8888,12235833,pm10,µg/m³
+6945,"Kurla, Mumbai - MPCB",19.0863,72.8888,12235831,no2,ppb
+6945,"Kurla, Mumbai - MPCB",19.0863,72.8888,12235832,o3,µg/m³
+6945,"Kurla, Mumbai - MPCB",19.0863,72.8888,14340924,wind_speed,m/s
+6945,"Kurla, Mumbai - MPCB",19.0863,72.8888,14340922,nox,ppb
+6945,"Kurla, Mumbai - MPCB",19.0863,72.8888,14340923,wind_direction,deg
+6945,"Kurla, Mumbai - MPCB",19.0863,72.8888,19993,co,µg/m³
+6945,"Kurla, Mumbai - MPCB",19.0863,72.8888,19987,so2,µg/m³
+6945,"Kurla, Mumbai - MPCB",19.0863,72.8888,19968,o3,µg/m³
+6945,"Kurla, Mumbai - MPCB",19.0863,72.8888,19978,pm25,µg/m³
+6945,"Kurla, Mumbai - MPCB",19.0863,72.8888,20076,no2,µg/m³
+6945,"Kurla, Mumbai - MPCB",19.0863,72.8888,19975,pm10,µg/m³
+6948,"Chhatrapati Shivaji Intl. Airport (T2), Mumbai - MPCB",19.10078,72.87462,12235859,pm10,µg/m³
+6948,"Chhatrapati Shivaji Intl. Airport (T2), Mumbai - MPCB",19.10078,72.87462,12235861,relativehumidity,%
+6948,"Chhatrapati Shivaji Intl. Airport (T2), Mumbai - MPCB",19.10078,72.87462,12235855,co,ppb
+6948,"Chhatrapati Shivaji Intl. Airport (T2), Mumbai - MPCB",19.10078,72.87462,12235856,no,ppb
+6948,"Chhatrapati Shivaji Intl. Airport (T2), Mumbai - MPCB",19.10078,72.87462,12235858,o3,µg/m³
+6948,"Chhatrapati Shivaji Intl. Airport (T2), Mumbai - MPCB",19.10078,72.87462,12235863,temperature,c
+6948,"Chhatrapati Shivaji Intl. Airport (T2), Mumbai - MPCB",19.10078,72.87462,12235862,so2,ppb
+6948,"Chhatrapati Shivaji Intl. Airport (T2), Mumbai - MPCB",19.10078,72.87462,12235860,pm25,µg/m³
+6948,"Chhatrapati Shivaji Intl. Airport (T2), Mumbai - MPCB",19.10078,72.87462,12235857,no2,ppb
+6948,"Chhatrapati Shivaji Intl. Airport (T2), Mumbai - MPCB",19.10078,72.87462,14340930,wind_speed,m/s
+6948,"Chhatrapati Shivaji Intl. Airport (T2), Mumbai - MPCB",19.10078,72.87462,14340929,wind_direction,deg
+6948,"Chhatrapati Shivaji Intl. Airport (T2), Mumbai - MPCB",19.10078,72.87462,14340928,nox,ppb
+6948,"Chhatrapati Shivaji Intl. Airport (T2), Mumbai - MPCB",19.10078,72.87462,19980,pm10,µg/m³
+6948,"Chhatrapati Shivaji Intl. Airport (T2), Mumbai - MPCB",19.10078,72.87462,19982,so2,µg/m³
+6948,"Chhatrapati Shivaji Intl. Airport (T2), Mumbai - MPCB",19.10078,72.87462,19979,o3,µg/m³
+6948,"Chhatrapati Shivaji Intl. Airport (T2), Mumbai - MPCB",19.10078,72.87462,19977,no2,µg/m³
+6948,"Chhatrapati Shivaji Intl. Airport (T2), Mumbai - MPCB",19.10078,72.87462,19976,co,µg/m³
+6948,"Chhatrapati Shivaji Intl. Airport (T2), Mumbai - MPCB",19.10078,72.87462,19981,pm25,µg/m³
+6956,"Powai, Mumbai - MPCB",19.1375,72.915056,12235899,temperature,c
+6956,"Powai, Mumbai - MPCB",19.1375,72.915056,12235891,co,ppb
+6956,"Powai, Mumbai - MPCB",19.1375,72.915056,12235895,pm10,µg/m³
+6956,"Powai, Mumbai - MPCB",19.1375,72.915056,12235894,o3,µg/m³
+6956,"Powai, Mumbai - MPCB",19.1375,72.915056,12235896,pm25,µg/m³
+6956,"Powai, Mumbai - MPCB",19.1375,72.915056,12235897,relativehumidity,%
+6956,"Powai, Mumbai - MPCB",19.1375,72.915056,12235892,no,ppb
+6956,"Powai, Mumbai - MPCB",19.1375,72.915056,12235893,no2,ppb
+6956,"Powai, Mumbai - MPCB",19.1375,72.915056,12235898,so2,ppb
+6956,"Powai, Mumbai - MPCB",19.1375,72.915056,14340934,nox,ppb
+6956,"Powai, Mumbai - MPCB",19.1375,72.915056,14340935,wind_direction,deg
+6956,"Powai, Mumbai - MPCB",19.1375,72.915056,14340936,wind_speed,m/s
+6956,"Powai, Mumbai - MPCB",19.1375,72.915056,20054,o3,µg/m³
+6956,"Powai, Mumbai - MPCB",19.1375,72.915056,20010,pm10,µg/m³
+6956,"Powai, Mumbai - MPCB",19.1375,72.915056,20125,co,µg/m³
+6956,"Powai, Mumbai - MPCB",19.1375,72.915056,20083,no2,µg/m³
+6956,"Powai, Mumbai - MPCB",19.1375,72.915056,20079,pm25,µg/m³
+6956,"Powai, Mumbai - MPCB",19.1375,72.915056,20101,so2,µg/m³
+6967,"Sion, Mumbai - MPCB",19.047,72.8746,12243925,co,ppb
+6967,"Sion, Mumbai - MPCB",19.047,72.8746,14340938,nox,ppb
+6967,"Sion, Mumbai - MPCB",19.047,72.8746,12243930,pm25,µg/m³
+6967,"Sion, Mumbai - MPCB",19.047,72.8746,14340939,wind_direction,deg
+6967,"Sion, Mumbai - MPCB",19.047,72.8746,12243929,pm10,µg/m³
+6967,"Sion, Mumbai - MPCB",19.047,72.8746,14340940,wind_speed,m/s
+6967,"Sion, Mumbai - MPCB",19.047,72.8746,12243926,no,ppb
+6967,"Sion, Mumbai - MPCB",19.047,72.8746,12243927,no2,ppb
+6967,"Sion, Mumbai - MPCB",19.047,72.8746,12243933,temperature,c
+6967,"Sion, Mumbai - MPCB",19.047,72.8746,12243931,relativehumidity,%
+6967,"Sion, Mumbai - MPCB",19.047,72.8746,12243932,so2,ppb
+6967,"Sion, Mumbai - MPCB",19.047,72.8746,12243928,o3,µg/m³
+6967,"Sion, Mumbai - MPCB",19.047,72.8746,20096,pm25,µg/m³
+6967,"Sion, Mumbai - MPCB",19.047,72.8746,20107,no2,µg/m³
+6967,"Sion, Mumbai - MPCB",19.047,72.8746,20109,co,µg/m³
+6967,"Sion, Mumbai - MPCB",19.047,72.8746,20098,o3,µg/m³
+6967,"Sion, Mumbai - MPCB",19.047,72.8746,20097,pm10,µg/m³
+6967,"Sion, Mumbai - MPCB",19.047,72.8746,20095,so2,µg/m³
+6987,"Vile Parle West, Mumbai - MPCB",19.10861,72.83622,12235850,pm10,µg/m³
+6987,"Vile Parle West, Mumbai - MPCB",19.10861,72.83622,12235853,so2,ppb
+6987,"Vile Parle West, Mumbai - MPCB",19.10861,72.83622,12235848,no2,ppb
+6987,"Vile Parle West, Mumbai - MPCB",19.10861,72.83622,12235847,no,ppb
+6987,"Vile Parle West, Mumbai - MPCB",19.10861,72.83622,12235854,temperature,c
+6987,"Vile Parle West, Mumbai - MPCB",19.10861,72.83622,12235852,relativehumidity,%
+6987,"Vile Parle West, Mumbai - MPCB",19.10861,72.83622,12235846,co,ppb
+6987,"Vile Parle West, Mumbai - MPCB",19.10861,72.83622,12235851,pm25,µg/m³
+6987,"Vile Parle West, Mumbai - MPCB",19.10861,72.83622,12235849,o3,µg/m³
+6987,"Vile Parle West, Mumbai - MPCB",19.10861,72.83622,14340927,wind_speed,m/s
+6987,"Vile Parle West, Mumbai - MPCB",19.10861,72.83622,14340926,wind_direction,deg
+6987,"Vile Parle West, Mumbai - MPCB",19.10861,72.83622,14340925,nox,ppb
+6987,"Vile Parle West, Mumbai - MPCB",19.10861,72.83622,20243,pm10,µg/m³
+6987,"Vile Parle West, Mumbai - MPCB",19.10861,72.83622,20239,no2,µg/m³
+6987,"Vile Parle West, Mumbai - MPCB",19.10861,72.83622,20254,so2,µg/m³
+6987,"Vile Parle West, Mumbai - MPCB",19.10861,72.83622,20236,co,µg/m³
+6987,"Vile Parle West, Mumbai - MPCB",19.10861,72.83622,20251,pm25,µg/m³
+6987,"Vile Parle West, Mumbai - MPCB",19.10861,72.83622,20240,o3,µg/m³
+7850,"Bandra, Mumbai - MPCB",19.0627,72.84614,22798,pm10,µg/m³
+7850,"Bandra, Mumbai - MPCB",19.0627,72.84614,36455,co,µg/m³
+7850,"Bandra, Mumbai - MPCB",19.0627,72.84614,36447,pm25,µg/m³
+7850,"Bandra, Mumbai - MPCB",19.0627,72.84614,36453,no2,µg/m³
+7850,"Bandra, Mumbai - MPCB",19.0627,72.84614,36451,o3,µg/m³
+7850,"Bandra, Mumbai - MPCB",19.0627,72.84614,36446,so2,µg/m³
+8039,Mumbai,19.07283,72.88261,23320,pm25,µg/m³
+11602,"Bandra Kurla Complex, Mumbai - IITM",19.053536000000005,72.84643,39407,so2,µg/m³
+11602,"Bandra Kurla Complex, Mumbai - IITM",19.053536000000005,72.84643,39409,o3,µg/m³
+11602,"Bandra Kurla Complex, Mumbai - IITM",19.053536000000005,72.84643,39406,no2,µg/m³
+11602,"Bandra Kurla Complex, Mumbai - IITM",19.053536000000005,72.84643,39404,pm25,µg/m³
+11602,"Bandra Kurla Complex, Mumbai - IITM",19.053536000000005,72.84643,39405,pm10,µg/m³
+11602,"Bandra Kurla Complex, Mumbai - IITM",19.053536000000005,72.84643,39408,co,µg/m³
+11604,"Deonar, Mumbai - IITM",19.04946,72.923,39419,so2,µg/m³
+11604,"Deonar, Mumbai - IITM",19.04946,72.923,39418,no2,µg/m³
+11604,"Deonar, Mumbai - IITM",19.04946,72.923,39421,o3,µg/m³
+11604,"Deonar, Mumbai - IITM",19.04946,72.923,39420,co,µg/m³
+11604,"Deonar, Mumbai - IITM",19.04946,72.923,39416,pm25,µg/m³
+11604,"Deonar, Mumbai - IITM",19.04946,72.923,39417,pm10,µg/m³
+12024,"Chakala-Andheri East, Mumbai - IITM",19.11074,72.86084,12442195,pm10,µg/m³
+12024,"Chakala-Andheri East, Mumbai - IITM",19.11074,72.86084,12442196,pm25,µg/m³
+12024,"Chakala-Andheri East, Mumbai - IITM",19.11074,72.86084,12236407,no,ppb
+12024,"Chakala-Andheri East, Mumbai - IITM",19.11074,72.86084,12236406,co,ppb
+12024,"Chakala-Andheri East, Mumbai - IITM",19.11074,72.86084,12236412,temperature,c
+12024,"Chakala-Andheri East, Mumbai - IITM",19.11074,72.86084,12236411,so2,ppb
+12024,"Chakala-Andheri East, Mumbai - IITM",19.11074,72.86084,12236410,relativehumidity,%
+12024,"Chakala-Andheri East, Mumbai - IITM",19.11074,72.86084,12236408,no2,ppb
+12024,"Chakala-Andheri East, Mumbai - IITM",19.11074,72.86084,12236409,o3,µg/m³
+12024,"Chakala-Andheri East, Mumbai - IITM",19.11074,72.86084,14341019,wind_speed,m/s
+12024,"Chakala-Andheri East, Mumbai - IITM",19.11074,72.86084,14341017,nox,ppb
+12024,"Chakala-Andheri East, Mumbai - IITM",19.11074,72.86084,14341018,wind_direction,deg
+12024,"Chakala-Andheri East, Mumbai - IITM",19.11074,72.86084,40574,no2,µg/m³
+12024,"Chakala-Andheri East, Mumbai - IITM",19.11074,72.86084,40573,so2,µg/m³
+12024,"Chakala-Andheri East, Mumbai - IITM",19.11074,72.86084,40570,o3,µg/m³
+12024,"Chakala-Andheri East, Mumbai - IITM",19.11074,72.86084,40569,co,µg/m³
+12024,"Chakala-Andheri East, Mumbai - IITM",19.11074,72.86084,40571,pm25,µg/m³
+12024,"Chakala-Andheri East, Mumbai - IITM",19.11074,72.86084,40572,pm10,µg/m³
+12039,"Khindipada-Bhandup West, Mumbai - IITM",19.164394,72.928297,12236389,co,ppb
+12039,"Khindipada-Bhandup West, Mumbai - IITM",19.164394,72.928297,12236392,o3,µg/m³
+12039,"Khindipada-Bhandup West, Mumbai - IITM",19.164394,72.928297,12236391,no2,ppb
+12039,"Khindipada-Bhandup West, Mumbai - IITM",19.164394,72.928297,12236397,temperature,c
+12039,"Khindipada-Bhandup West, Mumbai - IITM",19.164394,72.928297,12236396,so2,ppb
+12039,"Khindipada-Bhandup West, Mumbai - IITM",19.164394,72.928297,12236390,no,ppb
+12039,"Khindipada-Bhandup West, Mumbai - IITM",19.164394,72.928297,12236395,relativehumidity,%
+12039,"Khindipada-Bhandup West, Mumbai - IITM",19.164394,72.928297,12236393,pm10,µg/m³
+12039,"Khindipada-Bhandup West, Mumbai - IITM",19.164394,72.928297,12236394,pm25,µg/m³
+12039,"Khindipada-Bhandup West, Mumbai - IITM",19.164394,72.928297,14342058,wind_speed,m/s
+12039,"Khindipada-Bhandup West, Mumbai - IITM",19.164394,72.928297,14342056,nox,ppb
+12039,"Khindipada-Bhandup West, Mumbai - IITM",19.164394,72.928297,14342057,wind_direction,deg
+12039,"Khindipada-Bhandup West, Mumbai - IITM",19.164394,72.928297,40608,pm25,µg/m³
+12039,"Khindipada-Bhandup West, Mumbai - IITM",19.164394,72.928297,40636,co,µg/m³
+12039,"Khindipada-Bhandup West, Mumbai - IITM",19.164394,72.928297,40639,no2,µg/m³
+12039,"Khindipada-Bhandup West, Mumbai - IITM",19.164394,72.928297,40634,o3,µg/m³
+12039,"Khindipada-Bhandup West, Mumbai - IITM",19.164394,72.928297,40617,so2,µg/m³
+12039,"Khindipada-Bhandup West, Mumbai - IITM",19.164394,72.928297,40615,pm10,µg/m³
+3409328,"Bandra Kurla Complex, Mumbai - IITM",19.0627,72.84614,12708241,co,ppb
+3409328,"Bandra Kurla Complex, Mumbai - IITM",19.0627,72.84614,12708243,no2,ppb
+3409328,"Bandra Kurla Complex, Mumbai - IITM",19.0627,72.84614,12708244,o3,µg/m³
+3409328,"Bandra Kurla Complex, Mumbai - IITM",19.0627,72.84614,12708245,pm10,µg/m³
+3409328,"Bandra Kurla Complex, Mumbai - IITM",19.0627,72.84614,12708246,pm25,µg/m³
+3409328,"Bandra Kurla Complex, Mumbai - IITM",19.0627,72.84614,14342048,wind_direction,deg
+3409328,"Bandra Kurla Complex, Mumbai - IITM",19.0627,72.84614,14342049,wind_speed,m/s
+3409328,"Bandra Kurla Complex, Mumbai - IITM",19.0627,72.84614,14342047,nox,ppb
+3409328,"Bandra Kurla Complex, Mumbai - IITM",19.0627,72.84614,12708249,temperature,c
+3409328,"Bandra Kurla Complex, Mumbai - IITM",19.0627,72.84614,12708247,relativehumidity,%
+3409328,"Bandra Kurla Complex, Mumbai - IITM",19.0627,72.84614,12708248,so2,ppb
+3409328,"Bandra Kurla Complex, Mumbai - IITM",19.0627,72.84614,12708242,no,ppb
+3409329,"Deonar, Mumbai - IITM",19.04946,72.923,12236384,pm10,µg/m³
+3409329,"Deonar, Mumbai - IITM",19.04946,72.923,12236383,o3,µg/m³
+3409329,"Deonar, Mumbai - IITM",19.04946,72.923,12236385,pm25,µg/m³
+3409329,"Deonar, Mumbai - IITM",19.04946,72.923,12236380,co,ppb
+3409329,"Deonar, Mumbai - IITM",19.04946,72.923,12236382,no2,ppb
+3409329,"Deonar, Mumbai - IITM",19.04946,72.923,12236386,relativehumidity,%
+3409329,"Deonar, Mumbai - IITM",19.04946,72.923,12236387,so2,ppb
+3409329,"Deonar, Mumbai - IITM",19.04946,72.923,12236381,no,ppb
+3409329,"Deonar, Mumbai - IITM",19.04946,72.923,12236388,temperature,c
+3409329,"Deonar, Mumbai - IITM",19.04946,72.923,14341011,nox,ppb
+3409329,"Deonar, Mumbai - IITM",19.04946,72.923,14341012,wind_direction,deg
+3409329,"Deonar, Mumbai - IITM",19.04946,72.923,14341013,wind_speed,m/s
+3409479,"Mindspace-Malad West, Mumbai - MPCB",19.1878657,72.8304069,12238346,o3,µg/m³
+3409479,"Mindspace-Malad West, Mumbai - MPCB",19.1878657,72.8304069,12238350,so2,ppb
+3409479,"Mindspace-Malad West, Mumbai - MPCB",19.1878657,72.8304069,12238347,pm10,µg/m³
+3409479,"Mindspace-Malad West, Mumbai - MPCB",19.1878657,72.8304069,12238343,co,ppb
+3409479,"Mindspace-Malad West, Mumbai - MPCB",19.1878657,72.8304069,12238345,no2,ppb
+3409479,"Mindspace-Malad West, Mumbai - MPCB",19.1878657,72.8304069,12238349,relativehumidity,%
+3409479,"Mindspace-Malad West, Mumbai - MPCB",19.1878657,72.8304069,12238351,temperature,c
+3409479,"Mindspace-Malad West, Mumbai - MPCB",19.1878657,72.8304069,12238344,no,ppb
+3409479,"Mindspace-Malad West, Mumbai - MPCB",19.1878657,72.8304069,12238348,pm25,µg/m³
+3409479,"Mindspace-Malad West, Mumbai - MPCB",19.1878657,72.8304069,14341565,wind_direction,deg
+3409479,"Mindspace-Malad West, Mumbai - MPCB",19.1878657,72.8304069,14341566,wind_speed,m/s
+3409479,"Mindspace-Malad West, Mumbai - MPCB",19.1878657,72.8304069,14341564,nox,ppb
+3409482,"Bandra Kurla Complex, Mumbai - MPCB",19.065931,72.862131,12238373,o3,µg/m³
+3409482,"Bandra Kurla Complex, Mumbai - MPCB",19.065931,72.862131,12238375,pm25,µg/m³
+3409482,"Bandra Kurla Complex, Mumbai - MPCB",19.065931,72.862131,12238371,no,ppb
+3409482,"Bandra Kurla Complex, Mumbai - MPCB",19.065931,72.862131,12238370,co,ppb
+3409482,"Bandra Kurla Complex, Mumbai - MPCB",19.065931,72.862131,12238374,pm10,µg/m³
+3409482,"Bandra Kurla Complex, Mumbai - MPCB",19.065931,72.862131,12238378,temperature,c
+3409482,"Bandra Kurla Complex, Mumbai - MPCB",19.065931,72.862131,12238372,no2,ppb
+3409482,"Bandra Kurla Complex, Mumbai - MPCB",19.065931,72.862131,12238376,relativehumidity,%
+3409482,"Bandra Kurla Complex, Mumbai - MPCB",19.065931,72.862131,12238377,so2,ppb
+3409482,"Bandra Kurla Complex, Mumbai - MPCB",19.065931,72.862131,14341573,nox,ppb
+3409482,"Bandra Kurla Complex, Mumbai - MPCB",19.065931,72.862131,14341575,wind_speed,m/s
+3409482,"Bandra Kurla Complex, Mumbai - MPCB",19.065931,72.862131,14341574,wind_direction,deg
+3409483,"Chembur, Mumbai - MPCB",19.0364585,72.8954371,12238381,no2,ppb
+3409483,"Chembur, Mumbai - MPCB",19.0364585,72.8954371,12238384,pm25,µg/m³
+3409483,"Chembur, Mumbai - MPCB",19.0364585,72.8954371,12238380,no,ppb
+3409483,"Chembur, Mumbai - MPCB",19.0364585,72.8954371,12238387,temperature,c
+3409483,"Chembur, Mumbai - MPCB",19.0364585,72.8954371,12238385,relativehumidity,%
+3409483,"Chembur, Mumbai - MPCB",19.0364585,72.8954371,12238379,co,ppb
+3409483,"Chembur, Mumbai - MPCB",19.0364585,72.8954371,12238383,pm10,µg/m³
+3409483,"Chembur, Mumbai - MPCB",19.0364585,72.8954371,12238386,so2,ppb
+3409483,"Chembur, Mumbai - MPCB",19.0364585,72.8954371,12238382,o3,µg/m³
+3409483,"Chembur, Mumbai - MPCB",19.0364585,72.8954371,14341577,wind_direction,deg
+3409483,"Chembur, Mumbai - MPCB",19.0364585,72.8954371,14341576,nox,ppb
+3409483,"Chembur, Mumbai - MPCB",19.0364585,72.8954371,14341578,wind_speed,m/s
+3409486,"Kherwadi_Bandra East, Mumbai - MPCB",19.0632143,72.8456324,12238409,o3,µg/m³
+3409486,"Kherwadi_Bandra East, Mumbai - MPCB",19.0632143,72.8456324,12238410,pm10,µg/m³
+3409486,"Kherwadi_Bandra East, Mumbai - MPCB",19.0632143,72.8456324,12238407,no,ppb
+3409486,"Kherwadi_Bandra East, Mumbai - MPCB",19.0632143,72.8456324,12238408,no2,ppb
+3409486,"Kherwadi_Bandra East, Mumbai - MPCB",19.0632143,72.8456324,12238413,so2,ppb
+3409486,"Kherwadi_Bandra East, Mumbai - MPCB",19.0632143,72.8456324,12238406,co,ppb
+3409486,"Kherwadi_Bandra East, Mumbai - MPCB",19.0632143,72.8456324,12238414,temperature,c
+3409486,"Kherwadi_Bandra East, Mumbai - MPCB",19.0632143,72.8456324,12238411,pm25,µg/m³
+3409486,"Kherwadi_Bandra East, Mumbai - MPCB",19.0632143,72.8456324,12238412,relativehumidity,%
+3409486,"Kherwadi_Bandra East, Mumbai - MPCB",19.0632143,72.8456324,14341587,wind_speed,m/s
+3409486,"Kherwadi_Bandra East, Mumbai - MPCB",19.0632143,72.8456324,14341585,nox,ppb
+3409486,"Kherwadi_Bandra East, Mumbai - MPCB",19.0632143,72.8456324,14341586,wind_direction,deg
+3409511,"Shivaji Nagar, Mumbai - BMC",19.060498,72.923356,12238575,pm10,µg/m³
+3409511,"Shivaji Nagar, Mumbai - BMC",19.060498,72.923356,12238574,o3,µg/m³
+3409511,"Shivaji Nagar, Mumbai - BMC",19.060498,72.923356,12238578,so2,ppb
+3409511,"Shivaji Nagar, Mumbai - BMC",19.060498,72.923356,12238572,no,ppb
+3409511,"Shivaji Nagar, Mumbai - BMC",19.060498,72.923356,12238573,no2,ppb
+3409511,"Shivaji Nagar, Mumbai - BMC",19.060498,72.923356,12238579,temperature,c
+3409511,"Shivaji Nagar, Mumbai - BMC",19.060498,72.923356,12238576,pm25,µg/m³
+3409511,"Shivaji Nagar, Mumbai - BMC",19.060498,72.923356,12238571,co,ppb
+3409511,"Shivaji Nagar, Mumbai - BMC",19.060498,72.923356,12238577,relativehumidity,%
+3409511,"Shivaji Nagar, Mumbai - BMC",19.060498,72.923356,14341642,nox,ppb
+3409511,"Shivaji Nagar, Mumbai - BMC",19.060498,72.923356,14341644,wind_speed,m/s
+3409511,"Shivaji Nagar, Mumbai - BMC",19.060498,72.923356,14341643,wind_direction,deg
+3409514,"Ghatkopar, Mumbai - BMC",19.083694,72.920967,12238598,co,ppb
+3409514,"Ghatkopar, Mumbai - BMC",19.083694,72.920967,12238602,pm10,µg/m³
+3409514,"Ghatkopar, Mumbai - BMC",19.083694,72.920967,12238604,relativehumidity,%
+3409514,"Ghatkopar, Mumbai - BMC",19.083694,72.920967,12238603,pm25,µg/m³
+3409514,"Ghatkopar, Mumbai - BMC",19.083694,72.920967,12238600,no2,ppb
+3409514,"Ghatkopar, Mumbai - BMC",19.083694,72.920967,12238601,o3,µg/m³
+3409514,"Ghatkopar, Mumbai - BMC",19.083694,72.920967,12238606,temperature,c
+3409514,"Ghatkopar, Mumbai - BMC",19.083694,72.920967,12238599,no,ppb
+3409514,"Ghatkopar, Mumbai - BMC",19.083694,72.920967,12238605,so2,ppb
+3409514,"Ghatkopar, Mumbai - BMC",19.083694,72.920967,14341645,nox,ppb
+3409514,"Ghatkopar, Mumbai - BMC",19.083694,72.920967,14341647,wind_speed,m/s
+3409514,"Ghatkopar, Mumbai - BMC",19.083694,72.920967,14341646,wind_direction,deg

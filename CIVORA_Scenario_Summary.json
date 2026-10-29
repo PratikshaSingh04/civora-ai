@@ -1,0 +1,73 @@
+{
+    "project": "CIVORA AI",
+    "study_area": "K East, Andheri East, Mumbai",
+    "analysis": "Flood Scenario Simulation",
+    "total_grids": 405,
+    "baseline_mean_prediction": 0.168666,
+    "scenario_statistics": {
+        "Baseline": {
+            "mean_prediction": 0.168666,
+            "median_prediction": 0.057339,
+            "minimum_prediction": 0.005484,
+            "maximum_prediction": 0.836749,
+            "mean_change_from_baseline": 0.0,
+            "percentage_change_from_baseline": 0.0,
+            "grids_increased": 0,
+            "grids_decreased": 0,
+            "grids_unchanged": 0,
+            "percent_grids_increased": 0.0,
+            "percent_grids_decreased": 0.0
+        },
+        "NDVI +20%": {
+            "mean_prediction": 0.162553,
+            "median_prediction": 0.06737,
+            "minimum_prediction": 0.005635,
+            "maximum_prediction": 0.839192,
+            "mean_change_from_baseline": -0.006113,
+            "percentage_change_from_baseline": -3.624252,
+            "grids_increased": 208,
+            "grids_decreased": 124,
+            "grids_unchanged": 73,
+            "percent_grids_increased": 51.358025,
+            "percent_grids_decreased": 30.617284
+        },
+        "Road Density -20%": {
+            "mean_prediction": 0.165695,
+            "median_prediction": 0.064137,
+            "minimum_prediction": 0.005484,
+            "maximum_prediction": 0.836749,
+            "mean_change_from_baseline": -0.002971,
+            "percentage_change_from_baseline": -1.761513,
+            "grids_increased": 72,
+            "grids_decreased": 34,
+            "grids_unchanged": 299,
+            "percent_grids_increased": 17.777778,
+            "percent_grids_decreased": 8.395062
+        },
+        "Building Density -20%": {
+            "mean_prediction": 0.168176,
+            "median_prediction": 0.054146,
+            "minimum_prediction": 0.005484,
+            "maximum_prediction": 0.836749,
+            "mean_change_from_baseline": -0.00049,
+            "percentage_change_from_baseline": -0.290464,
+            "grids_increased": 114,
+            "grids_decreased": 51,
+            "grids_unchanged": 240,
+            "percent_grids_increased": 28.148148,
+            "percent_grids_decreased": 12.592593
+        }
+    },
+    "dominant_scenario_by_grid": {
+        "NDVI +20%": 280,
+        "Building Density -20%": 87,
+        "Road Density -20%": 38
+    },
+    "impact_magnitude_distribution": {
+        "Very Low": 190,
+        "Low": 96,
+        "Moderate": 52,
+        "High": 40,
+        "Very High": 27
+    }
+}
