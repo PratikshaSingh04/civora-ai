@@ -8,7 +8,12 @@ from shapely import transform as stransform
 from shapely.strtree import STRtree
 
 BASE_DIR = Path(__file__).resolve().parents[3]
-DATA_DIR = BASE_DIR / "frontend" / "public" / "data"
+_data_candidates = [
+    BASE_DIR / "frontend" / "public" / "data",
+    BASE_DIR / "data",
+    BASE_DIR
+]
+DATA_DIR = next((p for p in _data_candidates if p.exists() and (p / "K_East_Buildings_WGS84.geojson").exists()), _data_candidates[0])
 
 # Coordinate Reference Systems
 WGS84 = pyproj.CRS("EPSG:4326")
@@ -286,8 +291,41 @@ class FeasibilityEngine:
         if not recommendations:
             recommendations.append("Alignment shows minimal spatial conflicts with existing structures and waterways.")
 
+        # Cost and Capital Outlay Estimation
+        # Civil construction cost per km based on project classification (INR Crores per km)
+        cost_rates_per_km_cr = {
+            "highway": 85.0,        # Elevated 4-lane viaduct (MMRDA/MSRDC standard)
+            "road_widening": 18.0,   # At-grade arterial widening with box drains
+            "green_corridor": 8.5    # Permeable sponge transit corridor with bioswales
+        }
+        unit_rate_cr = cost_rates_per_km_cr.get(project_type, 22.0)
+        civil_cost_cr = (route_length_m / 1000.0) * unit_rate_cr
+
+        # Land acquisition / building rehabilitation cost
+        # Mumbai Ready Reckoner commercial/residential average for Andheri East (INR 75,000 / m²)
+        ready_reckoner_rate_inr_m2 = 75000
+        land_rehab_cost_cr = (total_bldg_area_m2 * ready_reckoner_rate_inr_m2) / 10000000.0
+
+        # Drainage & flood resilience fortification allowance (if crossing flood zones)
+        flood_fortification_cr = (severe_risk_cells * 0.45) + (high_risk_cells * 0.20)
+
+        total_outlay_cr = civil_cost_cr + land_rehab_cost_cr + flood_fortification_cr
+
         return {
             "alignment_name": alignment_name,
+            "cost_estimation": {
+                "civil_construction_cost_cr": round(civil_cost_cr, 2),
+                "land_rehabilitation_cost_cr": round(land_rehab_cost_cr, 2),
+                "flood_fortification_cr": round(flood_fortification_cr, 2),
+                "total_project_outlay_cr": round(total_outlay_cr, 2),
+                "unit_rate_cr_per_km": unit_rate_cr,
+                "ready_reckoner_rate_inr_m2": ready_reckoner_rate_inr_m2,
+                "basis_description": (
+                    f"Civil construction @ INR {unit_rate_cr} Cr/km ({project_type}) + "
+                    f"Structural rehab @ INR {ready_reckoner_rate_inr_m2:,}/m² (Andheri East Ready Reckoner) + "
+                    f"Hydraulic drainage fortification allowance."
+                )
+            },
             "project_type": project_type,
             "corridor_width_m": corridor_width_m,
             "metrics": {

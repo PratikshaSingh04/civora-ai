@@ -1,0 +1,18 @@
+services:
+  civora-backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: civora-backend:latest
+    container_name: civora-backend
+    restart: always
+    ports:
+      - "8000:8000"
+    environment:
+      - CIVORA_HOST=0.0.0.0
+      - CIVORA_PORT=8000
+      - GEMINI_API_KEY=${GEMINI_API_KEY:-}
+    env_file:
+      - path: backend/.env
+        required: false
+

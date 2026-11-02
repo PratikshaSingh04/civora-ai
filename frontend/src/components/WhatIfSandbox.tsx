@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
+import { API_BASE_URL } from "../config/api";
 import type { CustomSimulationResult, GridContextMap } from "../types/civora";
 
 interface WhatIfSandboxProps {
@@ -27,7 +28,7 @@ export function WhatIfSandbox({
       setLoading(true);
       setError(null);
       try {
-        const response = await fetch("http://127.0.0.1:8000/api/scenarios/simulate-custom", {
+        const response = await fetch(`${API_BASE_URL}/api/scenarios/simulate-custom`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({

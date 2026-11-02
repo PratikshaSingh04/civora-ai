@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef, useCallback } from "react";
+import { useEffect, useState, useRef, useCallback, useMemo } from "react";
 import {
   MapContainer,
   TileLayer,
@@ -76,6 +76,7 @@ interface MapControllerProps {
   triggerResetView: number;
   activeCorridorData?: any;
   highlightedSite?: SuitableSite | null;
+  searchFlyTarget?: { center: [number, number]; zoom?: number; timestamp: number } | null;
 }
 
 function MapController({
@@ -85,6 +86,7 @@ function MapController({
   triggerResetView,
   activeCorridorData,
   highlightedSite,
+  searchFlyTarget,
 }: MapControllerProps) {
   const map = useMap();
 
@@ -105,6 +107,15 @@ function MapController({
       }
     }
   }, [triggerFitBounds, gridData, map]);
+
+  // Pan and zoom to searched landmark or explicit search target
+  useEffect(() => {
+    if (!searchFlyTarget) return;
+    map.flyTo(searchFlyTarget.center, searchFlyTarget.zoom || 15.5, {
+      duration: 1.0,
+      animate: true,
+    });
+  }, [searchFlyTarget, map]);
 
   // Pan and zoom to selected grid cell
   useEffect(() => {
@@ -151,6 +162,241 @@ function MapController({
 
   return null;
 }
+
+/* =========================================================
+   CURATED K/EAST WARD LANDMARKS & TRANSIT HUBS
+   ========================================================= */
+export interface CuratedLandmark {
+  id: string;
+  name: string;
+  category: "landmark" | "transit" | "hospital" | "flood_spot" | "grid";
+  gridId: string;
+  aliases: string[];
+  lat: number;
+  lng: number;
+  tag: string;
+  badgeClass?: string;
+  desc?: string;
+}
+
+const CURATED_LANDMARKS: CuratedLandmark[] = [
+  {
+    id: "saki-naka",
+    name: "Saki Naka Junction",
+    category: "flood_spot",
+    gridId: "KE_G_0449",
+    aliases: ["SAKI NAKA", "SAKINAKA", "SAKI NAKA METRO", "ANDHERI KURLA ROAD", "JUNCTION"],
+    lat: 19.1065,
+    lng: 72.8817,
+    tag: "62.7% Flood Risk",
+    badgeClass: "badge-hotspot",
+    desc: "Critical intersection & Metro Line 1 interchange",
+  },
+  {
+    id: "milan-subway",
+    name: "Milan Subway",
+    category: "flood_spot",
+    gridId: "KE_G_0024",
+    aliases: ["MILAN SUBWAY", "MILAN", "SANTA CRUZ SUBWAY", "MILAN FLYOVER"],
+    lat: 19.0925,
+    lng: 72.8441,
+    tag: "88.6% Critical Hotspot",
+    badgeClass: "badge-hotspot",
+    desc: "Highest flood vulnerability basin in K/East Ward",
+  },
+  {
+    id: "airport-t2",
+    name: "Mumbai International Airport (CSMIA / T2)",
+    category: "landmark",
+    gridId: "KE_G_0372",
+    aliases: ["AIRPORT", "T2", "CSMIA", "TERMINAL 2", "INTERNATIONAL AIRPORT", "SAHAR AIRPORT"],
+    lat: 19.0974,
+    lng: 72.8747,
+    tag: "Aviation Hub",
+    badgeClass: "badge-hub",
+    desc: "Chhatrapati Shivaji Maharaj International Airport",
+  },
+  {
+    id: "chakala-metro",
+    name: "Chakala (J.B. Nagar) Metro Hub",
+    category: "transit",
+    gridId: "KE_G_0257",
+    aliases: ["CHAKALA", "CHAKALA METRO", "J.B. NAGAR", "JB NAGAR", "MIDC CROSSING"],
+    lat: 19.1131,
+    lng: 72.8650,
+    tag: "Transit Hub",
+    badgeClass: "badge-transit",
+    desc: "Andheri-Kurla arterial transit hub & commercial node",
+  },
+  {
+    id: "weh-junction",
+    name: "Western Express Highway (WEH / Gundavali)",
+    category: "transit",
+    gridId: "KE_G_0120",
+    aliases: ["WEH", "WESTERN EXPRESS HIGHWAY", "GUNDAVALI", "HIGHWAY", "GUNDAVALI METRO"],
+    lat: 19.1175,
+    lng: 72.8531,
+    tag: "Arterial Highway",
+    badgeClass: "badge-transit",
+    desc: "Primary north-south traffic corridor of Mumbai",
+  },
+  {
+    id: "jvlr-junction",
+    name: "JVLR (Jogeshwari-Vikhroli Link Road)",
+    category: "transit",
+    gridId: "KE_G_0276",
+    aliases: ["JVLR", "JOGESHWARI VIKHROLI LINK ROAD", "LINK ROAD", "MAJJAS DEPOT"],
+    lat: 19.1312,
+    lng: 72.8672,
+    tag: "Arterial Spine",
+    badgeClass: "badge-transit",
+    desc: "Major east-west connector linking Western & Eastern Express Highways",
+  },
+  {
+    id: "andheri-subway",
+    name: "Andheri Subway & SV Road",
+    category: "flood_spot",
+    gridId: "KE_G_0061",
+    aliases: ["ANDHERI SUBWAY", "ANDHERI UNDERPASS", "STATION SUBWAY", "SV ROAD"],
+    lat: 19.1193,
+    lng: 72.8470,
+    tag: "Flood Hotspot",
+    badgeClass: "badge-hotspot",
+    desc: "Chronic low-lying railway underpass prone to monsoon inundation",
+  },
+  {
+    id: "andheri-station",
+    name: "Andheri Railway Station (East)",
+    category: "transit",
+    gridId: "KE_G_0064",
+    aliases: ["ANDHERI STATION", "ANDHERI EAST", "ANDHERI METRO", "STATION TERMINUS"],
+    lat: 19.1205,
+    lng: 72.8485,
+    tag: "Railway Terminus",
+    badgeClass: "badge-transit",
+    desc: "Suburban railway interchange and Line 1 Metro terminus",
+  },
+  {
+    id: "midc-it-park",
+    name: "MIDC Industrial & IT Area",
+    category: "landmark",
+    gridId: "KE_G_0334",
+    aliases: ["MIDC", "MIDC ANDHERI", "CROSS ROAD", "CENTRAL ROAD MIDC", "IT PARK"],
+    lat: 19.1222,
+    lng: 72.8720,
+    tag: "Tech Corridor",
+    badgeClass: "badge-hub",
+    desc: "Major commercial IT park and corporate headquarters district",
+  },
+  {
+    id: "seepz",
+    name: "SEEPZ Special Economic Zone",
+    category: "landmark",
+    gridId: "KE_G_0384",
+    aliases: ["SEEPZ", "SEEPZ GATE", "SEEPZ ANDHERI", "SPECIAL ECONOMIC ZONE"],
+    lat: 19.1304,
+    lng: 72.8759,
+    tag: "Export Zone",
+    badgeClass: "badge-hub",
+    desc: "Export processing zone with high workforce concentration",
+  },
+  {
+    id: "marol-naka",
+    name: "Marol Naka Metro & Andheri-Kurla Rd",
+    category: "flood_spot",
+    gridId: "KE_G_0420",
+    aliases: ["MAROL NAKA", "MAROL", "MAROL METRO", "ANDHERI KURLA ROAD MAROL"],
+    lat: 19.1110,
+    lng: 72.8793,
+    tag: "66.2% Hotspot",
+    badgeClass: "badge-hotspot",
+    desc: "High-density commercial junction & Metro Line 1 & Line 3 interchange",
+  },
+  {
+    id: "seven-hills",
+    name: "SevenHills Hospital (Marol)",
+    category: "hospital",
+    gridId: "KE_G_0470",
+    aliases: ["SEVENHILLS", "SEVEN HILLS HOSPITAL", "SEVENHILLS MAROL", "HOSPITAL MAROL"],
+    lat: 19.1201,
+    lng: 72.8839,
+    tag: "Lifeline Hospital",
+    badgeClass: "badge-hospital",
+    desc: "Premier 1,500-bed emergency tertiary healthcare facility",
+  },
+  {
+    id: "holy-spirit",
+    name: "Holy Spirit Hospital (Mahakali)",
+    category: "hospital",
+    gridId: "KE_G_0306",
+    aliases: ["HOLY SPIRIT", "HOLY SPIRIT HOSPITAL", "MAHAKALI HOSPITAL"],
+    lat: 19.1245,
+    lng: 72.8696,
+    tag: "Lifeline Hospital",
+    badgeClass: "badge-hospital",
+    desc: "300-bed multispecialty hospital and critical care center",
+  },
+  {
+    id: "mahakali-caves",
+    name: "Mahakali Caves (Kondivite)",
+    category: "landmark",
+    gridId: "KE_G_0277",
+    aliases: ["MAHAKALI CAVES", "KONDIVITE CAVES", "MAHAKALI ROAD", "CAVES"],
+    lat: 19.1289,
+    lng: 72.8672,
+    tag: "Heritage Site",
+    badgeClass: "badge-hub",
+    desc: "Ancient 1st-century BCE rock-cut Buddhist heritage monument",
+  },
+  {
+    id: "mithi-river",
+    name: "Mithi River Catchment",
+    category: "flood_spot",
+    gridId: "KE_G_0318",
+    aliases: ["MITHI", "MITHI RIVER", "RIVER BASIN", "MITHI NALLAH", "KRISHNA NAGAR"],
+    lat: 19.0974,
+    lng: 72.8700,
+    tag: "Hydrological Core",
+    badgeClass: "badge-hotspot",
+    desc: "Primary storm drainage watercourse and tidal discharge channel",
+  },
+  {
+    id: "vile-parle-east",
+    name: "Vile Parle East & Sathye College",
+    category: "landmark",
+    gridId: "KE_G_0020",
+    aliases: ["VILE PARLE", "VILE PARLE EAST", "NEHRU ROAD", "SATHYE COLLEGE", "DIXIT ROAD"],
+    lat: 19.0993,
+    lng: 72.8445,
+    tag: "Civic Node",
+    badgeClass: "badge-hub",
+    desc: "Residential and educational corridor adjacent to domestic airport",
+  },
+  {
+    id: "vishal-hall",
+    name: "Vishal Hall / MV Road",
+    category: "transit",
+    gridId: "KE_G_0119",
+    aliases: ["VISHAL HALL", "MV ROAD", "MATHURADAS VASANJI ROAD", "SIR MV ROAD"],
+    lat: 19.1175,
+    lng: 72.8531,
+    tag: "Commercial Spine",
+    badgeClass: "badge-transit",
+    desc: "Major retail junction on Andheri-Ghatkopar transit corridor",
+  },
+  {
+    id: "sher-e-punjab",
+    name: "Sher-e-Punjab Colony",
+    category: "landmark",
+    gridId: "KE_G_0185",
+    aliases: ["SHER-E-PUNJAB", "SHER E PUNJAB", "PUNJAB COLONY", "TOLANI COLLEGE"],
+    lat: 19.1265,
+    lng: 72.8590,
+    tag: "Residential Core",
+    badgeClass: "badge-hub",
+    desc: "Established residential enclave near Mahakali and JVLR",
+  },
+];
 
 /* =========================================================
    CIVORA DIGITAL TWIN MAP
@@ -211,11 +457,41 @@ export default function CivoraMap({
   // Search and view triggers
   const [searchQuery, setSearchQuery] = useState("");
   const [searchError, setSearchError] = useState("");
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [searchFlyTarget, setSearchFlyTarget] = useState<{
+    center: [number, number];
+    zoom?: number;
+    timestamp: number;
+  } | null>(null);
+  const searchContainerRef = useRef<HTMLDivElement>(null);
+
   const [triggerFitBounds, setTriggerFitBounds] = useState(0);
   const [triggerResetView, setTriggerResetView] = useState(0);
   const [error, setError] = useState<string>("");
 
   const geoJsonLayerRef = useRef<L.GeoJSON | null>(null);
+
+  // Handle click outside to close search suggestions dropdown
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (
+        searchContainerRef.current &&
+        !searchContainerRef.current.contains(e.target as Node)
+      ) {
+        setIsSearchOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  // Auto-dismiss search error after 4.5 seconds
+  useEffect(() => {
+    if (searchError) {
+      const timer = setTimeout(() => setSearchError(""), 4500);
+      return () => clearTimeout(timer);
+    }
+  }, [searchError]);
 
   /* Load Grid GeoJSON */
   useEffect(() => {
@@ -280,35 +556,196 @@ export default function CivoraMap({
     }
   }, [showBuildings, buildingsData, loadingBuildings]);
 
+  /* Build Autocomplete Suggestions for Landmarks, Roads, and Grids */
+  const searchSuggestions = useMemo(() => {
+    const q = searchQuery.trim().toUpperCase();
+
+    // If query is empty, show top 6 featured landmarks
+    if (!q) {
+      return CURATED_LANDMARKS.slice(0, 6).map((lm) => ({
+        ...lm,
+        icon:
+          lm.category === "hospital"
+            ? "🏥"
+            : lm.category === "flood_spot"
+            ? "💧"
+            : lm.category === "transit"
+            ? "🛣️"
+            : "🏛️",
+      }));
+    }
+
+    const results: Array<{
+      id: string;
+      name: string;
+      category: string;
+      gridId: string;
+      lat?: number;
+      lng?: number;
+      tag: string;
+      badgeClass?: string;
+      desc?: string;
+      icon: string;
+    }> = [];
+
+    // 1. Curated Landmarks & Aliases
+    for (const lm of CURATED_LANDMARKS) {
+      const matchName = lm.name.toUpperCase().includes(q);
+      const matchAlias = lm.aliases.some((a) => a.toUpperCase().includes(q));
+      const matchGrid = lm.gridId.toUpperCase().includes(q);
+      if (matchName || matchAlias || matchGrid) {
+        results.push({
+          ...lm,
+          icon:
+            lm.category === "hospital"
+              ? "🏥"
+              : lm.category === "flood_spot"
+              ? "💧"
+              : lm.category === "transit"
+              ? "🛣️"
+              : "🏛️",
+        });
+      }
+    }
+
+    // 2. Direct Grid ID Matching (handles 'KE_G_0024', '0024', '24')
+    const cleanNum = q.replace(/[^0-9]/g, "");
+    if (gridData) {
+      for (const feat of gridData.features) {
+        const gid = feat.properties?.grid_id || "";
+        const matchesExact = gid.toUpperCase() === q;
+        const matchesPrefix = gid.toUpperCase().includes(q);
+        const matchesNum = cleanNum && gid.endsWith(cleanNum.padStart(4, "0"));
+
+        if ((matchesExact || matchesPrefix || matchesNum) && !results.some((r) => r.gridId === gid)) {
+          const riskVal = feat.properties?.CIVORA_Scenario_Impact_All_Grids_baseline_prediction ?? 0;
+          results.push({
+            id: `grid-${gid}`,
+            name: `Grid Cell ${gid}`,
+            category: "grid",
+            gridId: gid,
+            tag: `Risk: ${(riskVal * 100).toFixed(1)}%`,
+            badgeClass: riskVal > 0.4 ? "badge-hotspot" : "badge-grid",
+            desc: `Spatial analysis unit ${gid}`,
+            icon: "▦",
+          });
+          if (results.length >= 8) break;
+        }
+      }
+    }
+
+    // 3. Match from gridContextMap (Roads & Flood Spots)
+    if (gridContextMap && results.length < 8) {
+      for (const item of Object.values(gridContextMap)) {
+        if (results.some((r) => r.gridId === item.grid_id)) continue;
+
+        const matchedRoad = item.roads.find((r) => r.toUpperCase().includes(q));
+        if (matchedRoad) {
+          results.push({
+            id: `road-${item.grid_id}-${matchedRoad}`,
+            name: matchedRoad,
+            category: "road",
+            gridId: item.grid_id,
+            tag: "Arterial Road",
+            badgeClass: "badge-transit",
+            desc: `Passes through ${item.grid_id}`,
+            icon: "🛣️",
+          });
+          if (results.length >= 8) break;
+          continue;
+        }
+
+        const matchedSpot = item.flood_spots.find((s) => s.toUpperCase().includes(q));
+        if (matchedSpot) {
+          const cleanSpot = matchedSpot.replace(/\(Delete\)/gi, "").trim();
+          results.push({
+            id: `spot-${item.grid_id}-${matchedSpot}`,
+            name: cleanSpot,
+            category: "flood_spot",
+            gridId: item.grid_id,
+            tag: "BMC Flood Spot",
+            badgeClass: "badge-hotspot",
+            desc: `Historical waterlogging in ${item.grid_id}`,
+            icon: "💧",
+          });
+          if (results.length >= 8) break;
+        }
+      }
+    }
+
+    return results.slice(0, 8);
+  }, [searchQuery, gridData, gridContextMap]);
+
+  /* Select Landmark and Fly to it */
+  const handleSelectLandmark = useCallback(
+    (item: { gridId: string; lat?: number; lng?: number; name: string }) => {
+      onGridSelect?.(item.gridId);
+      setSearchError("");
+      setIsSearchOpen(false);
+      setSearchQuery(item.name);
+
+      let targetCenter: [number, number] | null =
+        item.lat && item.lng ? [item.lat, item.lng] : null;
+
+      if (!targetCenter && gridData) {
+        const feat = gridData.features.find((f) => f.properties?.grid_id === item.gridId);
+        if (feat?.geometry) {
+          if (feat.geometry.type === "Polygon") {
+            const coords = feat.geometry.coordinates[0];
+            let latSum = 0,
+              lngSum = 0;
+            coords.forEach((c) => {
+              lngSum += c[0];
+              latSum += c[1];
+            });
+            targetCenter = [latSum / coords.length, lngSum / coords.length];
+          }
+        }
+      }
+
+      if (targetCenter) {
+        setSearchFlyTarget({
+          center: targetCenter,
+          zoom: 16,
+          timestamp: Date.now(),
+        });
+      }
+    },
+    [gridData, onGridSelect]
+  );
+
   /* Handle Grid Search Submit */
   const handleSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setSearchError("");
-    const formatted = searchQuery.trim().toUpperCase();
 
-    // Check if query matches a grid ID directly
-    const validGrid = gridData?.features.find(
-      (f) => f.properties?.grid_id.toUpperCase() === formatted
-    );
-
-    if (validGrid) {
-      onGridSelect?.(validGrid.properties.grid_id);
-      setSearchQuery("");
+    if (!searchQuery.trim()) {
+      setIsSearchOpen(true);
       return;
     }
 
-    // Check if query matches a verified road or flood spot name
-    if (gridContextMap) {
-      const matched = Object.values(gridContextMap).find(
-        (item) =>
-          item.roads.some((r) => r.toUpperCase().includes(formatted)) ||
-          item.flood_spots.some((s) => s.toUpperCase().includes(formatted))
+    if (searchSuggestions.length > 0) {
+      handleSelectLandmark(searchSuggestions[0]);
+      return;
+    }
+
+    // Direct grid ID fallback
+    const formatted = searchQuery.trim().toUpperCase();
+    const cleanNum = formatted.replace(/[^0-9]/g, "");
+    const validGrid = gridData?.features.find((f) => {
+      const gid = f.properties?.grid_id.toUpperCase();
+      return (
+        gid === formatted ||
+        gid === `KE_G_${cleanNum.padStart(4, "0")}`
       );
-      if (matched) {
-        onGridSelect?.(matched.grid_id);
-        setSearchQuery("");
-        return;
-      }
+    });
+
+    if (validGrid) {
+      handleSelectLandmark({
+        name: `Grid Cell ${validGrid.properties.grid_id}`,
+        gridId: validGrid.properties.grid_id,
+      });
+      return;
     }
 
     setSearchError(`'${searchQuery}' not found in K/East Ward grids or landmarks.`);
@@ -320,37 +757,37 @@ export default function CivoraMap({
       const props = feature?.properties as ScenarioProperties;
       const isSelected = props?.grid_id === selectedGridId;
 
-      let fillColor = "#475569";
+      let fillColor = "#1e293b";
 
       if (activeLayer === "scenario") {
         const dominant = props?.CIVORA_Scenario_Impact_All_Grids_dominant_scenario;
-        if (dominant === "NDVI +20%") fillColor = "#10b981"; // Emerald
-        else if (dominant === "Road Density -20%") fillColor = "#f59e0b"; // Amber
-        else if (dominant === "Building Density -20%") fillColor = "#ef4444"; // Red
+        if (dominant === "NDVI +20%") fillColor = "#22d3ee"; // Sponge City (Cyan)
+        else if (dominant === "Road Density -20%") fillColor = "#3b82f6"; // Porous Road (Electric Blue)
+        else if (dominant === "Building Density -20%") fillColor = "#7c5cff"; // Setback Buffer (Violet)
       } else if (activeLayer === "baseline") {
         const val = props?.CIVORA_Scenario_Impact_All_Grids_baseline_prediction ?? 0;
-        if (val < 0.10) fillColor = "#10b981";
-        else if (val < 0.20) fillColor = "#06b6d4";
-        else if (val < 0.40) fillColor = "#f59e0b";
-        else fillColor = "#ef4444";
+        if (val < 0.15) fillColor = "#22d3ee"; // Low Risk: Cyan
+        else if (val < 0.35) fillColor = "#3b82f6"; // Moderate Risk: Electric Blue
+        else if (val < 0.55) fillColor = "#7c5cff"; // High Risk: Violet
+        else fillColor = "#f87171"; // Severe/Critical Hotspot: Warning Coral
       } else if (activeLayer === "ndvi") {
         const val = props?.CIVORA_Scenario_Impact_All_Grids_ndvi_change ?? 0;
-        if (val < -0.05) fillColor = "#1d4ed8";
-        else if (val < 0) fillColor = "#38bdf8";
-        else if (val < 0.05) fillColor = "#facc15";
-        else fillColor = "#ef4444";
+        if (val < -0.05) fillColor = "#3b82f6";
+        else if (val < 0) fillColor = "#22d3ee";
+        else if (val < 0.05) fillColor = "#7c5cff";
+        else fillColor = "#f87171";
       } else if (activeLayer === "road") {
         const val = props?.CIVORA_Scenario_Impact_All_Grids_road_change ?? 0;
-        if (val < -0.05) fillColor = "#1d4ed8";
-        else if (val < 0) fillColor = "#38bdf8";
-        else if (val < 0.05) fillColor = "#facc15";
-        else fillColor = "#ef4444";
+        if (val < -0.05) fillColor = "#3b82f6";
+        else if (val < 0) fillColor = "#22d3ee";
+        else if (val < 0.05) fillColor = "#7c5cff";
+        else fillColor = "#f87171";
       } else if (activeLayer === "building") {
         const val = props?.CIVORA_Scenario_Impact_All_Grids_building_change ?? 0;
-        if (val < -0.05) fillColor = "#1d4ed8";
-        else if (val < 0) fillColor = "#38bdf8";
-        else if (val < 0.05) fillColor = "#facc15";
-        else fillColor = "#ef4444";
+        if (val < -0.05) fillColor = "#3b82f6";
+        else if (val < 0) fillColor = "#22d3ee";
+        else if (val < 0.05) fillColor = "#7c5cff";
+        else fillColor = "#f87171";
       } else if (activeLayer === "difference") {
         let diff = 0;
         if (selectedScenario === "NDVI +20%") {
@@ -360,30 +797,30 @@ export default function CivoraMap({
         } else if (selectedScenario === "Building Density -20%") {
           diff = props?.CIVORA_Scenario_Impact_All_Grids_building_change ?? 0;
         }
-        if (diff < -0.03) fillColor = "#1d4ed8";
-        else if (diff < 0) fillColor = "#38bdf8";
+        if (diff < -0.03) fillColor = "#3b82f6";
+        else if (diff < 0) fillColor = "#22d3ee";
         else if (diff === 0) fillColor = "#64748b";
-        else if (diff < 0.03) fillColor = "#fbbf24";
-        else fillColor = "#ef4444";
+        else if (diff < 0.03) fillColor = "#7c5cff";
+        else fillColor = "#f87171";
       }
 
       if (isSelected) {
         return {
-          color: "#00f0ff",
+          color: "#22d3ee",
           weight: 3.5,
           opacity: 1,
           fillColor: fillColor,
-          fillOpacity: 0.85,
+          fillOpacity: 0.88,
           dashArray: undefined,
         };
       }
 
       return {
-        color: "#1e293b",
+        color: "rgba(148, 163, 184, 0.22)",
         weight: 1,
-        opacity: 0.7,
+        opacity: 0.8,
         fillColor: fillColor,
-        fillOpacity: 0.55,
+        fillOpacity: 0.62,
       };
     },
     [activeLayer, selectedGridId, selectedScenario]
@@ -452,19 +889,95 @@ export default function CivoraMap({
     <div className="civora-map-wrapper">
       {/* Top Map Action Toolbar */}
       <div className="map-toolbar">
-        {/* Search Input */}
-        <form className="map-search-form" onSubmit={handleSearchSubmit}>
-          <span className="search-icon">Search:</span>
-          <input
-            type="text"
-            placeholder="Search Grid (e.g. KE_G_0024) or Road..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-          />
-          <button type="submit" className="search-submit-btn">
-            Go
-          </button>
-        </form>
+        {/* Search Container with Live Landmark Autocomplete */}
+        <div className="map-search-container" ref={searchContainerRef}>
+          <form className="map-search-form" onSubmit={handleSearchSubmit}>
+            <span className="search-icon">🔍</span>
+            <input
+              type="text"
+              placeholder="Search Landmark, Metro, Road, or Grid..."
+              value={searchQuery}
+              onFocus={() => setIsSearchOpen(true)}
+              onChange={(e) => {
+                setSearchQuery(e.target.value);
+                setIsSearchOpen(true);
+                setSearchError("");
+              }}
+            />
+            {searchQuery && (
+              <button
+                type="button"
+                className="search-clear-btn"
+                onClick={() => {
+                  setSearchQuery("");
+                  setSearchError("");
+                  setIsSearchOpen(false);
+                }}
+                title="Clear search"
+              >
+                ✕
+              </button>
+            )}
+            <button type="submit" className="search-submit-btn">
+              Go
+            </button>
+          </form>
+
+          {/* Autocomplete Dropdown */}
+          {isSearchOpen && (
+            <div className="search-suggestions-dropdown">
+              <div className="suggestions-header">
+                {searchQuery.trim()
+                  ? `Matching Locations (${searchSuggestions.length})`
+                  : "Popular K/East Landmarks & Corridors"}
+              </div>
+              <div className="suggestions-list">
+                {searchSuggestions.length > 0 ? (
+                  searchSuggestions.map((item) => (
+                    <div
+                      key={item.id}
+                      className="search-suggestion-item"
+                      onClick={() => handleSelectLandmark(item)}
+                    >
+                      <span className="suggestion-icon">{item.icon}</span>
+                      <div className="suggestion-details">
+                        <div className="suggestion-title-row">
+                          <span className="suggestion-name">{item.name}</span>
+                          <span className={`suggestion-badge ${item.badgeClass || ""}`}>
+                            {item.tag}
+                          </span>
+                        </div>
+                        <div className="suggestion-meta">
+                          <span className="suggestion-grid">{item.gridId}</span>
+                          {item.desc && <span className="suggestion-desc">• {item.desc}</span>}
+                        </div>
+                      </div>
+                    </div>
+                  ))
+                ) : (
+                  <div className="suggestion-empty">
+                    No landmarks found for "{searchQuery}". Try "Saki Naka", "Airport", "WEH", "Milan", or "0024".
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+
+          {/* Search Warning / Error Message */}
+          {searchError && (
+            <div className="map-search-warning">
+              <span>⚠️ {searchError}</span>
+              <button
+                type="button"
+                className="warning-dismiss-btn"
+                onClick={() => setSearchError("")}
+                title="Dismiss warning"
+              >
+                ✕
+              </button>
+            </div>
+          )}
+        </div>
 
         {/* View Actions */}
         <div className="map-view-actions">
@@ -587,12 +1100,11 @@ export default function CivoraMap({
             onBasemap3DChange={setBasemap3D}
             triggerFitBounds={triggerFitBounds}
             triggerResetView={triggerResetView}
+            searchFlyTarget={searchFlyTarget}
           />
         </div>
       ) : (
         <>
-          {searchError && <div className="map-search-warning">{searchError}</div>}
-
       {/* Layer Visibility Toggles */}
       <div className="map-layer-toggles">
         <label className={`toggle-chip ${showBoundary ? "active" : ""}`}>
@@ -667,6 +1179,7 @@ export default function CivoraMap({
           triggerResetView={triggerResetView}
           activeCorridorData={activeCorridorData}
           highlightedSite={highlightedSite}
+          searchFlyTarget={searchFlyTarget}
         />
 
         {/* K/East Administrative Boundary Layer */}
@@ -967,15 +1480,15 @@ export default function CivoraMap({
         {activeLayer === "scenario" && (
           <div className="legend-items">
             <div className="legend-row">
-              <span className="legend-box" style={{ background: "#10b981" }}></span>
+              <span className="legend-box" style={{ background: "#22d3ee" }}></span>
               <span>NDVI +20% (Vegetation)</span>
             </div>
             <div className="legend-row">
-              <span className="legend-box" style={{ background: "#f59e0b" }}></span>
+              <span className="legend-box" style={{ background: "#3b82f6" }}></span>
               <span>Road Density -20%</span>
             </div>
             <div className="legend-row">
-              <span className="legend-box" style={{ background: "#ef4444" }}></span>
+              <span className="legend-box" style={{ background: "#7c5cff" }}></span>
               <span>Building Density -20%</span>
             </div>
           </div>
@@ -984,20 +1497,20 @@ export default function CivoraMap({
         {activeLayer === "baseline" && (
           <div className="legend-items">
             <div className="legend-row">
-              <span className="legend-box" style={{ background: "#10b981" }}></span>
-              <span>&lt; 10% (Low)</span>
+              <span className="legend-box" style={{ background: "#22d3ee" }}></span>
+              <span>&lt; 15% (Low Risk)</span>
             </div>
             <div className="legend-row">
-              <span className="legend-box" style={{ background: "#06b6d4" }}></span>
-              <span>10% – 20% (Moderate)</span>
+              <span className="legend-box" style={{ background: "#3b82f6" }}></span>
+              <span>15% – 35% (Moderate Risk)</span>
             </div>
             <div className="legend-row">
-              <span className="legend-box" style={{ background: "#f59e0b" }}></span>
-              <span>20% – 40% (High)</span>
+              <span className="legend-box" style={{ background: "#7c5cff" }}></span>
+              <span>35% – 55% (High Risk)</span>
             </div>
             <div className="legend-row">
-              <span className="legend-box" style={{ background: "#ef4444" }}></span>
-              <span>&gt; 40% (Severe Hotspot)</span>
+              <span className="legend-box" style={{ background: "#f87171" }}></span>
+              <span>&gt; 55% (Severe Hotspot)</span>
             </div>
           </div>
         )}
@@ -1008,11 +1521,11 @@ export default function CivoraMap({
           activeLayer === "difference") && (
           <div className="legend-items">
             <div className="legend-row">
-              <span className="legend-box" style={{ background: "#1d4ed8" }}></span>
+              <span className="legend-box" style={{ background: "#3b82f6" }}></span>
               <span>&lt; -5.0 pp (Strong Reduction)</span>
             </div>
             <div className="legend-row">
-              <span className="legend-box" style={{ background: "#38bdf8" }}></span>
+              <span className="legend-box" style={{ background: "#22d3ee" }}></span>
               <span>-5.0 pp to 0 (Moderate Reduction)</span>
             </div>
             <div className="legend-row">
@@ -1020,7 +1533,7 @@ export default function CivoraMap({
               <span>Neutral / Negligible</span>
             </div>
             <div className="legend-row">
-              <span className="legend-box" style={{ background: "#ef4444" }}></span>
+              <span className="legend-box" style={{ background: "#f87171" }}></span>
               <span>&gt; 0 (Predicted Increase)</span>
             </div>
           </div>

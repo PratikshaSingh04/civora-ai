@@ -1,5 +1,6 @@
 import { useState, useEffect, useMemo } from "react";
 import type { ErEntity, ErRelationship, SoftwareModuleInfo, ArchitectureSchemaResponse } from "../types/civora";
+import { API_BASE_URL } from "../config/api";
 
 interface ArchitectureModalProps {
   isOpen: boolean;
@@ -292,7 +293,7 @@ export function ArchitectureModal({ isOpen, onClose }: ArchitectureModalProps) {
 
   useEffect(() => {
     if (!isOpen) return;
-    fetch("http://127.0.0.1:8000/api/architecture/schema")
+    fetch(`${API_BASE_URL}/api/architecture/schema`)
       .then((res) => (res.ok ? res.json() : null))
       .then((data: ArchitectureSchemaResponse | null) => {
         if (data) setSchemaData(data);

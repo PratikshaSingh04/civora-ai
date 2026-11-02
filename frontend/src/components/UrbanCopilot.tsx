@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect, useCallback } from "react";
+import { API_BASE_URL } from "../config/api";
 import type {
   GridContextMap,
   UserProfile,
@@ -192,7 +193,7 @@ export function UrbanCopilot({
       setIsTyping(true);
 
       try {
-        const response = await fetch("http://127.0.0.1:8000/api/copilot/query", {
+        const response = await fetch(`${API_BASE_URL}/api/copilot/query`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({

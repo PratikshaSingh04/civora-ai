@@ -293,6 +293,33 @@ export interface CorridorFeasibilityResult {
     corridor_buffer: any;
   };
   limitations_disclaimer: string;
+  cost_estimation?: {
+    civil_construction_cost_cr: number;
+    land_rehabilitation_cost_cr: number;
+    flood_fortification_cr: number;
+    total_project_outlay_cr: number;
+    unit_rate_cr_per_km: number;
+    ready_reckoner_rate_inr_m2: number;
+    basis_description: string;
+  };
+}
+
+export interface ScenarioCostBenefit {
+  intervention_name: string;
+  capex_cr: number;
+  annual_damage_avoided_cr: number;
+  benefit_cost_ratio: number;
+  payback_period_months: number;
+  physical_scope: string;
+  unit_rate_basis: string;
+  funding_channel: string;
+}
+
+export interface CostBenefitResponse {
+  study_area: string;
+  currency: string;
+  baseline_annual_flood_damage_cr: number;
+  scenarios: Record<string, ScenarioCostBenefit>;
 }
 
 export interface ErAttribute {

@@ -5,60 +5,84 @@
 
 :root {
   /* High-Precision Typography */
-  --font-sans: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --font-heading: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-sans: 'Inter', 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-heading: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
   --sans: var(--font-sans);
   --heading: var(--font-heading);
   --mono: var(--font-mono);
 
-  /* Executive Dark Palette */
-  --bg-deepest: #05070c;
-  --bg-darkest: #07090e;
-  --bg-dark: #0a0e17;
-  --bg-surface: #0f1523;
-  --bg-surface-elevated: #141c2e;
-  --bg-surface-hover: #1b263b;
-  --bg-glass: rgba(15, 21, 35, 0.72);
-  --bg-glass-elevated: rgba(20, 28, 46, 0.85);
+  /* ============================================================
+     OFFICIAL CIVORA AI PALETTE (Urban Intelligence Dark Mode)
+     ============================================================ */
+  --bg-main: #050914;
+  --bg-secondary: #0B1120;
+  --bg-card: #101B2D;
+  --bg-panel: #14243B;
+  --bg-elevated: #182B46;
+  --bg-hover: #1A2C47;
 
-  /* Precise Glass Borders */
-  --border-subtle: rgba(255, 255, 255, 0.07);
-  --border-medium: rgba(255, 255, 255, 0.12);
-  --border-bright: rgba(255, 255, 255, 0.22);
-  --border-accent: rgba(139, 92, 246, 0.45);
-  --border-cyan: rgba(6, 182, 212, 0.45);
+  /* Primary Accent Colours */
+  --accent-blue: #3B82F6;
+  --accent-cyan: #22D3EE;
+  --accent-violet: #7C5CFF;
+  --accent-lime: #B7D957;
 
   /* High-Contrast Typography */
-  --text-primary: #f8fafc;
-  --text-secondary: #94a3b8;
-  --text-muted: #64748b;
-  --text-dim: #475569;
+  --text-primary: #F8FAFC;
+  --text-secondary: #A8B3C7;
+  --text-muted: #718096;
+  --text-dim: #4B5563;
 
-  /* Radiant Accents */
-  --accent-purple: #8b5cf6;
-  --accent-purple-light: #a78bfa;
-  --accent-purple-glow: rgba(139, 92, 246, 0.35);
-  --accent-cyan: #06b6d4;
-  --accent-cyan-light: #38bdf8;
-  --accent-cyan-glow: rgba(6, 182, 212, 0.35);
-  --accent-emerald: #10b981;
-  --accent-emerald-light: #34d399;
-  --accent-amber: #f59e0b;
-  --accent-amber-light: #fbbf24;
-  --accent-rose: #f43f5e;
-  --accent-rose-light: #fb7185;
+  /* Borders */
+  --border-default: rgba(148, 163, 184, 0.16);
+  --border-highlight: rgba(34, 211, 238, 0.35);
+  --border-violet: rgba(124, 92, 255, 0.35);
+  --border-lime: rgba(183, 217, 87, 0.35);
+
+  /* Selective Gradients */
+  --gradient-civora: linear-gradient(135deg, #7C5CFF 0%, #3B82F6 50%, #22D3EE 100%);
+  --gradient-civora-subtle: linear-gradient(135deg, rgba(124, 92, 255, 0.12) 0%, rgba(59, 130, 246, 0.10) 50%, rgba(34, 211, 238, 0.12) 100%);
+  --gradient-card: linear-gradient(180deg, rgba(20, 36, 59, 0.55) 0%, rgba(16, 27, 45, 0.90) 100%);
+
+  /* Backward Compatibility Aliases */
+  --bg-deepest: var(--bg-main);
+  --bg-darkest: var(--bg-main);
+  --bg-dark: var(--bg-secondary);
+  --bg-surface: var(--bg-card);
+  --bg-surface-elevated: var(--bg-panel);
+  --bg-surface-hover: var(--bg-hover);
+  --bg-glass: rgba(16, 27, 45, 0.78);
+  --bg-glass-elevated: rgba(20, 36, 59, 0.88);
+
+  --border-subtle: var(--border-default);
+  --border-medium: rgba(148, 163, 184, 0.22);
+  --border-bright: rgba(148, 163, 184, 0.32);
+  --border-accent: var(--border-violet);
+  --border-cyan: var(--border-highlight);
+
+  --accent-purple: var(--accent-violet);
+  --accent-purple-light: #9B82FF;
+  --accent-purple-glow: rgba(124, 92, 255, 0.22);
+  --accent-cyan-light: #67E8F9;
+  --accent-cyan-glow: rgba(34, 211, 238, 0.22);
+  --accent-emerald: #10B981;
+  --accent-emerald-light: #34D399;
+  --accent-amber: #F59E0B;
+  --accent-amber-light: #FBBF24;
+  --accent-rose: #F43F5E;
+  --accent-rose-light: #FB7185;
 
   /* Dimensions */
   --sidebar-width: 260px;
   --topbar-height: 62px;
 
   /* Layered Shadows */
-  --shadow-sm: 0 2px 8px -2px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.06);
-  --shadow-md: 0 8px 24px -4px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.08);
-  --shadow-lg: 0 16px 40px -8px rgba(0, 0, 0, 0.75), inset 0 1px 1px rgba(255, 255, 255, 0.1);
-  --shadow-glow-purple: 0 0 30px -5px rgba(139, 92, 246, 0.35);
-  --shadow-glow-cyan: 0 0 30px -5px rgba(6, 182, 212, 0.35);
+  --shadow-sm: 0 2px 8px -2px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  --shadow-md: 0 8px 24px -4px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  --shadow-lg: 0 16px 40px -8px rgba(0, 0, 0, 0.7), inset 0 1px 1px rgba(255, 255, 255, 0.08);
+  --shadow-glow-purple: 0 0 24px -4px rgba(124, 92, 255, 0.25);
+  --shadow-glow-cyan: 0 0 24px -4px rgba(34, 211, 238, 0.25);
 
   color-scheme: dark;
 }

@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { API_BASE_URL } from "../config/api";
 import type { ValidationBenchmarkData } from "../types/civora";
 
 interface ValidationBenchmarkProps {
@@ -11,7 +12,7 @@ export function ValidationBenchmark({ onFocusGrid }: ValidationBenchmarkProps) {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    fetch("http://127.0.0.1:8000/api/scenarios/benchmark/metrics")
+    fetch(`${API_BASE_URL}/api/scenarios/benchmark/metrics`)
       .then((res) => {
         if (!res.ok) throw new Error("Failed to load validation benchmark");
         return res.json();

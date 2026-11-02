@@ -1,7 +1,11 @@
+from pathlib import Path
+
 import pandas as pd
 
+BASE_DIR = Path(__file__).resolve().parent
+
 # Load the CIVORA flood dataset
-df = pd.read_csv("CIVORA_Flood_ML_Dataset_Final.csv")
+df = pd.read_csv(BASE_DIR / "CIVORA_Flood_ML_Dataset_Final.csv")
 
 # Display basic information
 print("Dataset shape:", df.shape)
@@ -78,7 +82,7 @@ print("\nXGBoost model trained successfully!")
 import joblib
 
 # Save the trained XGBoost model
-joblib.dump(model, "CIVORA_Flood_XGBoost_Model.pkl")
+joblib.dump(model, BASE_DIR / "CIVORA_Flood_XGBoost_Model.pkl")
 
 print("XGBoost model saved successfully!")
 
@@ -100,6 +104,7 @@ print(classification_report(y_test, y_pred))
 print("\nConfusion Matrix:")
 print(confusion_matrix(y_test, y_pred))
 
+# pyrefly: ignore[missing-import]
 import matplotlib.pyplot as plt
 
 # Get feature importance from the trained XGBoost model
@@ -149,7 +154,7 @@ print("\nFlood Predictions:")
 print(df[["grid_id", "flood_probability", "predicted_flood"]].head(10))
 
 # Save predictions
-df.to_csv("CIVORA_Flood_Predictions.csv", index=False)
+df.to_csv(BASE_DIR / "CIVORA_Flood_Predictions.csv", index=False)
 
 print("\nFlood predictions saved successfully!")
 
@@ -177,6 +182,11 @@ shap.summary_plot(
 
 plt.title("CIVORA AI - SHAP Feature Impact")
 plt.tight_layout()
+plt.savefig(
+    BASE_DIR / "civora_shap_summary.png",
+    dpi=300,
+    bbox_inches="tight"
+)
 plt.show()
 
 # ============================================
@@ -197,7 +207,7 @@ plt.title("CIVORA - Overall Feature Importance using SHAP")
 plt.tight_layout()
 
 plt.savefig(
-    r"C:\Users\prati\Downloads\CIVORA\CIVORA_SHAP_Feature_Importance.png",
+    BASE_DIR / "CIVORA_SHAP_Feature_Importance.png",
     dpi=300,
     bbox_inches="tight"
 )
@@ -227,8 +237,8 @@ plt.title(f"CIVORA AI - SHAP Explanation for {grid_id}")
 plt.tight_layout()
 
 plt.savefig(
-    r"C:\Users\prati\Downloads\CIVORA\CIVORA_SHAP_KE_G_0024.png",
-    dpi=300,
+    BASE_DIR / "CIVORA_SHAP_KE_G_0024.png",
+     dpi=300,
     bbox_inches="tight"
 )
 

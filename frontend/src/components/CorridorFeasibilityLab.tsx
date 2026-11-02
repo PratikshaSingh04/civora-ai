@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
+import { API_BASE_URL } from "../config/api";
 import type {
   CorridorPreset,
   CorridorFeasibilityResult,
@@ -72,7 +73,7 @@ export function CorridorFeasibilityLab({
 
   // Fetch presets from backend API on mount
   useEffect(() => {
-    fetch("http://127.0.0.1:8000/api/infrastructure/presets")
+    fetch(`${API_BASE_URL}/api/infrastructure/presets`)
       .then((res) => (res.ok ? res.json() : null))
       .then((data) => {
         if (data?.presets?.length) {
@@ -98,7 +99,7 @@ export function CorridorFeasibilityLab({
     setLoading(true);
     setError(null);
     try {
-      const response = await fetch("http://127.0.0.1:8000/api/infrastructure/analyze-alignment", {
+      const response = await fetch(`${API_BASE_URL}/api/infrastructure/analyze-alignment`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -449,6 +450,45 @@ export function CorridorFeasibilityLab({
               <small>{result.flood_risk_exposure?.severe_risk_cells_count ?? 0} Severe / {result.flood_risk_exposure?.high_risk_cells_count ?? 0} High Risk</small>
             </div>
           </div>
+
+
+          {/* MUNICIPAL CAPITAL OUTLAY & COMPENSATION ESTIMATOR */}
+          {result.cost_estimation && (
+            <div className="corridor-cost-estimation-card">
+              <div className="corridor-cost-header">
+                <div>
+                  <span className="corridor-cost-tag">INFRASTRUCTURE FINANCE &amp; BUDGET</span>
+                  <h4 className="corridor-cost-title">Estimated Capital Outlay &amp; Land Rehabilitation Cost</h4>
+                  <p className="corridor-cost-desc">{result.cost_estimation.basis_description}</p>
+                </div>
+                <div className="corridor-cost-total-badge">
+                  <span className="total-label">ESTIMATED PROJECT BUDGET</span>
+                  <strong className="total-value">₹{result.cost_estimation.total_project_outlay_cr} Cr</strong>
+                  <small className="total-sub">Total Capital Investment</small>
+                </div>
+              </div>
+
+              <div className="corridor-cost-grid">
+                <div className="corridor-cost-box">
+                  <span className="box-label">CIVIL CONSTRUCTION</span>
+                  <strong className="box-val cyan">₹{result.cost_estimation.civil_construction_cost_cr} Cr</strong>
+                  <small>@ ₹{result.cost_estimation.unit_rate_cr_per_km} Cr/km ({result.project_type})</small>
+                </div>
+
+                <div className="corridor-cost-box">
+                  <span className="box-label">LAND / BUILDING REHAB</span>
+                  <strong className="box-val amber">₹{result.cost_estimation.land_rehabilitation_cost_cr} Cr</strong>
+                  <small>@ ₹{result.cost_estimation.ready_reckoner_rate_inr_m2.toLocaleString()}/m² Ready Reckoner</small>
+                </div>
+
+                <div className="corridor-cost-box">
+                  <span className="box-label">DRAINAGE FORTIFICATION</span>
+                  <strong className="box-val purple">₹{result.cost_estimation.flood_fortification_cr} Cr</strong>
+                  <small>Hydraulic conduits across flood cells</small>
+                </div>
+              </div>
+            </div>
+          )}
 
           {/* Municipal Engineering Directives & Recommendations */}
           <div className="feasibility-recommendations-box">

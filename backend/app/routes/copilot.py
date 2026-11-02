@@ -12,7 +12,12 @@ from app.services.feasibility import ENGINE
 router = APIRouter(prefix="/api/copilot", tags=["AI Copilot & Scenario Interpreter"])
 
 BASE_DIR = Path(__file__).resolve().parents[3]
-GRID_CONTEXT_FILE = BASE_DIR / "frontend" / "public" / "data" / "K_East_Grid_Context.json"
+_candidates = [
+    BASE_DIR / "frontend" / "public" / "data" / "K_East_Grid_Context.json",
+    BASE_DIR / "data" / "K_East_Grid_Context.json",
+    BASE_DIR / "K_East_Grid_Context.json",
+]
+GRID_CONTEXT_FILE = next((p for p in _candidates if p.exists()), _candidates[0])
 
 def _get_gemini_api_key() -> Optional[str]:
     """Retrieve Gemini API key from environment variables or backend/.env file."""

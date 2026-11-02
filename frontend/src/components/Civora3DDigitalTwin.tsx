@@ -30,6 +30,7 @@ export interface Civora3DProps {
   activeCorridorData?: any;
   triggerFitBounds?: number;
   triggerResetView?: number;
+  searchFlyTarget?: { center: [number, number]; zoom?: number; timestamp: number } | null;
 }
 
 interface CameraBookmark {
@@ -160,6 +161,7 @@ export default function Civora3DDigitalTwin({
   basemap3D = "dark",
   triggerFitBounds,
   triggerResetView,
+  searchFlyTarget,
 }: Civora3DProps) {
   const mapContainerRef = useRef<HTMLDivElement>(null);
   const mapInstanceRef = useRef<any>(null);
@@ -577,21 +579,19 @@ export default function Civora3DDigitalTwin({
             "fill-extrusion-color": [
               "case",
               ["==", ["get", "grid_id"], selectedGridId],
-              "#f59e0b", // Highlighted selected cell in Gold
+              "#22d3ee", // Highlighted selected cell in Cyan
               [
                 "interpolate",
                 ["linear"],
                 ["coalesce", ["get", scenarioProbField], 0.05],
                 0.0,
-                "#10b981", // Low risk Green
+                "#22d3ee", // Low risk Cyan
                 0.25,
-                "#06b6d4", // Moderate Cyan
-                0.45,
-                "#eab308", // Elevated Yellow
-                0.65,
-                "#f97316", // High Orange
-                0.85,
-                "#ef4444", // Severe Crimson
+                "#3b82f6", // Moderate Electric Blue
+                0.50,
+                "#7c5cff", // High Violet
+                0.80,
+                "#f87171", // Severe Warning Coral
               ],
             ],
             "fill-extrusion-opacity": 0.45,
@@ -657,21 +657,19 @@ export default function Civora3DDigitalTwin({
         map.setPaintProperty("lyr-grids-extrusion", "fill-extrusion-color", [
           "case",
           ["==", ["get", "grid_id"], selectedGridId],
-          "#f59e0b",
+          "#22d3ee",
           [
             "interpolate",
             ["linear"],
             ["coalesce", ["get", scenarioProbField], 0.05],
             0.0,
-            "#10b981",
+            "#22d3ee",
             0.25,
-            "#06b6d4",
-            0.45,
-            "#eab308",
-            0.65,
-            "#f97316",
-            0.85,
-            "#ef4444",
+            "#3b82f6",
+            0.50,
+            "#7c5cff",
+            0.80,
+            "#f87171",
           ],
         ]);
       }
@@ -1055,12 +1053,26 @@ export default function Civora3DDigitalTwin({
     });
   }, [selectedGridId, gridData]);
 
+  // Pan and zoom to searched landmark or explicit search target in 3D
+  useEffect(() => {
+    const map = mapInstanceRef.current;
+    if (!map || !searchFlyTarget) return;
+
+    // center is [lat, lng], maplibre requires [lng, lat]
+    map.flyTo({
+      center: [searchFlyTarget.center[1], searchFlyTarget.center[0]],
+      zoom: searchFlyTarget.zoom || 16,
+      pitch: 60,
+      duration: 1500,
+    });
+  }, [searchFlyTarget]);
+
   return (
     <div className="civora-3d-digital-twin-wrapper" style={{ width: "100%", height: "100%", position: "relative" }}>
       {/* 3D Map Canvas Container */}
       <div
         ref={mapContainerRef}
-        style={{ width: "100%", height: "100%", background: "#090d16" }}
+        style={{ width: "100%", height: "100%", background: "#050914" }}
       />
 
       {/* Loading Overlay */}

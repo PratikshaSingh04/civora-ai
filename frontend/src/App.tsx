@@ -13,6 +13,7 @@ import { AuthModal } from "./components/AuthModal";
 import { QuickstartBanner } from "./components/QuickstartBanner";
 import { CorridorFeasibilityLab } from "./components/CorridorFeasibilityLab";
 import { ArchitectureModal } from "./components/ArchitectureModal";
+import { API_BASE_URL } from "./config/api";
 
 import type {
   CivoraSummaryData,
@@ -88,7 +89,7 @@ export default function App() {
 
   // Fetch Global Scenario Summary
   useEffect(() => {
-    fetch("http://127.0.0.1:8000/api/scenarios")
+    fetch(`${API_BASE_URL}/api/scenarios`)
       .then((res) => {
         if (!res.ok) throw new Error("Failed to fetch scenario summary");
         return res.json();
@@ -112,7 +113,7 @@ export default function App() {
 
   // Fetch Ranked Hotspots from Backend or Compute from Grid Context
   useEffect(() => {
-    fetch("http://127.0.0.1:8000/api/scenarios/hotspots?limit=50")
+    fetch(`${API_BASE_URL}/api/scenarios/hotspots?limit=50`)
       .then((res) => (res.ok ? res.json() : null))
       .then((data) => {
         if (data?.hotspots && data.hotspots.length > 0) {
@@ -159,7 +160,7 @@ export default function App() {
   useEffect(() => {
     let isMounted = true;
 
-    fetch(`http://127.0.0.1:8000/api/explanation/${selectedGridId}`)
+    fetch(`${API_BASE_URL}/api/explanation/${selectedGridId}`)
       .then((res) => {
         if (!res.ok) throw new Error("Failed to load SHAP explanation");
         return res.json();
@@ -189,7 +190,7 @@ export default function App() {
   }, [gridContextMap, selectedGridId]);
 
   const handleSelectDepartment = useCallback((deptId: DepartmentRole) => {
-    fetch(`http://127.0.0.1:8000/api/auth/me?department_id=${deptId}`)
+    fetch(`${API_BASE_URL}/api/auth/me?department_id=${deptId}`)
       .then((res) => (res.ok ? res.json() : null))
       .then((user) => {
         if (user) {
@@ -221,7 +222,7 @@ export default function App() {
     } else if (goalType === "hospital") {
       setActiveNav("ai-copilot");
     } else if (goalType === "flyover") {
-      fetch("http://127.0.0.1:8000/api/infrastructure/analyze-alignment", {
+      fetch(`${API_BASE_URL}/api/infrastructure/analyze-alignment`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -285,15 +286,15 @@ export default function App() {
   };
 
   const navLabels: Record<NavView, string> = {
-    overview: "Overview Dashboard",
-    "digital-twin": "Digital Twin Map",
-    "scenario-lab": "Scenario Lab",
-    "what-if": "What-If Sandbox",
-    infrastructure: "Infrastructure Lab",
+    overview: "Urban Intelligence Dashboard",
+    "digital-twin": "Digital Twin GIS Map",
+    "scenario-lab": "Scenario Simulation Laboratory",
+    "what-if": "Scenario Comparison & What-If Sandbox",
+    infrastructure: "Infrastructure & Corridor Screening Lab",
     "ai-copilot": "AI Planning Copilot",
-    validation: "Validation & Insights",
-    dossiers: "Planning Dossiers",
-    "data-provenance": "Data & Provenance",
+    validation: "Explainable AI (SHAP) & Validation",
+    dossiers: "Municipal Planning Dossiers",
+    "data-provenance": "Spatial Data & Provenance Catalog",
   };
 
   return (
@@ -314,38 +315,87 @@ export default function App() {
             type="button"
             className={`nav-item ${activeNav === "overview" ? "active" : ""}`}
             onClick={() => setActiveNav("overview")}
+            title="Overview Urban Intelligence Dashboard"
           >
-            <span>⌂</span> Overview
+            <span className="nav-icon">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <rect x="3" y="3" width="7" height="9" rx="1.5" />
+                <rect x="14" y="3" width="7" height="5" rx="1.5" />
+                <rect x="14" y="12" width="7" height="9" rx="1.5" />
+                <rect x="3" y="16" width="7" height="5" rx="1.5" />
+              </svg>
+            </span>
+            <span className="nav-label">Dashboard</span>
           </button>
           <button
             type="button"
             className={`nav-item ${activeNav === "digital-twin" ? "active" : ""}`}
             onClick={() => setActiveNav("digital-twin")}
+            title="Interactive 2D & 3D Geospatial Digital Twin"
           >
-            <span>◈</span> Digital Twin Map
+            <span className="nav-icon">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21" />
+                <line x1="9" y1="3" x2="9" y2="18" />
+                <line x1="15" y1="6" x2="15" y2="21" />
+              </svg>
+            </span>
+            <span className="nav-label">Digital Twin / GIS Map</span>
           </button>
 
-          <div className="nav-section">PLANNING INTERVENTIONS</div>
+          <div className="nav-section">PLANNING & PREDICTION</div>
           <button
             type="button"
             className={`nav-item ${activeNav === "scenario-lab" ? "active" : ""}`}
             onClick={() => setActiveNav("scenario-lab")}
+            title="Ward-Wide Policy Simulation (NDVI, Roads, Buildings)"
           >
-            <span>◉</span> Scenario Lab
+            <span className="nav-icon">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="4" y1="21" x2="4" y2="14" />
+                <line x1="4" y1="10" x2="4" y2="3" />
+                <line x1="12" y1="21" x2="12" y2="12" />
+                <line x1="12" y1="8" x2="12" y2="3" />
+                <line x1="20" y1="21" x2="20" y2="16" />
+                <line x1="20" y1="12" x2="20" y2="3" />
+                <line x1="1" y1="14" x2="7" y2="14" />
+                <line x1="9" y1="8" x2="15" y2="8" />
+                <line x1="17" y1="16" x2="23" y2="16" />
+              </svg>
+            </span>
+            <span className="nav-label">Scenario Simulation</span>
           </button>
           <button
             type="button"
             className={`nav-item ${activeNav === "what-if" ? "active" : ""}`}
             onClick={() => setActiveNav("what-if")}
+            title="Micro-Intervention Real-Time What-If Sandbox"
           >
-            <span>⌖</span> What-If Sandbox
+            <span className="nav-icon">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="12" cy="12" r="10" />
+                <circle cx="12" cy="12" r="6" />
+                <circle cx="12" cy="12" r="2" />
+              </svg>
+            </span>
+            <span className="nav-label">Scenario Comparison & Sandbox</span>
           </button>
           <button
             type="button"
             className={`nav-item ${activeNav === "infrastructure" ? "active" : ""}`}
             onClick={() => setActiveNav("infrastructure")}
+            title="Screen Infrastructure Corridors & Building Conflict Envelopes"
           >
-            <span>⎈</span> Infrastructure Lab
+            <span className="nav-icon">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M4 19L8 5" />
+                <path d="M16 5L20 19" />
+                <path d="M12 7V9" />
+                <path d="M12 13V15" />
+                <path d="M12 19V21" />
+              </svg>
+            </span>
+            <span className="nav-label">Infrastructure Lab</span>
           </button>
 
           <div className="nav-section">EVIDENCE & DECISION SUPPORT</div>
@@ -353,29 +403,63 @@ export default function App() {
             type="button"
             className={`nav-item ${activeNav === "ai-copilot" ? "active" : ""}`}
             onClick={() => setActiveNav("ai-copilot")}
+            title="Municipal Planning AI Copilot"
           >
-            <span>✦</span> AI Planning Copilot
+            <span className="nav-icon">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M12 2a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2 2 2 0 0 1-2-2V4a2 2 0 0 1 2-2z" />
+                <rect x="3" y="8" width="18" height="12" rx="3" />
+                <circle cx="9" cy="14" r="1" fill="currentColor" />
+                <circle cx="15" cy="14" r="1" fill="currentColor" />
+                <path d="M8 18h8" />
+              </svg>
+            </span>
+            <span className="nav-label">AI Planning Copilot</span>
           </button>
           <button
             type="button"
             className={`nav-item ${activeNav === "validation" ? "active" : ""}`}
             onClick={() => setActiveNav("validation")}
+            title="TreeSHAP Feature Attribution & Empirical Model Benchmark"
           >
-            <span>§</span> Validation & Insights
+            <span className="nav-icon">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+              </svg>
+            </span>
+            <span className="nav-label">Explainable AI (SHAP)</span>
           </button>
           <button
             type="button"
             className={`nav-item ${activeNav === "dossiers" ? "active" : ""}`}
             onClick={() => setActiveNav("dossiers")}
+            title="Generate Official Municipal Planning Dossiers"
           >
-            <span>▤</span> Planning Dossiers
+            <span className="nav-icon">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                <polyline points="14 2 14 8 20 8" />
+                <line x1="16" y1="13" x2="8" y2="13" />
+                <line x1="16" y1="17" x2="8" y2="17" />
+                <polyline points="10 9 9 9 8 9" />
+              </svg>
+            </span>
+            <span className="nav-label">Planning Dossiers</span>
           </button>
           <button
             type="button"
             className={`nav-item ${activeNav === "data-provenance" ? "active" : ""}`}
             onClick={() => setActiveNav("data-provenance")}
+            title="Geospatial Data Provenance & Municipal Catalog"
           >
-            <span>▦</span> Data & Provenance
+            <span className="nav-icon">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <ellipse cx="12" cy="5" rx="9" ry="3" />
+                <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3" />
+                <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5" />
+              </svg>
+            </span>
+            <span className="nav-label">Data & Provenance</span>
           </button>
         </nav>
 
@@ -399,7 +483,12 @@ export default function App() {
             style={{ width: "100%", justifyContent: "center" }}
             onClick={() => setIsArchModalOpen(true)}
           >
-            <span>◈</span> System Architecture
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <polygon points="12 2 2 7 12 12 22 7 12 2" />
+              <polyline points="2 17 12 22 22 17" />
+              <polyline points="2 12 12 17 22 12" />
+            </svg>
+            <span>Architecture Blueprint</span>
           </button>
         </div>
       </aside>
@@ -432,7 +521,7 @@ export default function App() {
         <div className="topbar-right">
           <div className="topbar-engine-status">
             <span className={`telemetry-dot live ${apiError ? "warning" : ""}`} />
-            <span>AI: <strong>{apiError ? "Spatial Cache" : "XGBoost + TreeSHAP (92.65%)"}</strong></span>
+            <span>AI Engine: <strong>{apiError ? "Spatial Cache" : "XGBoost + TreeSHAP Active"}</strong></span>
           </div>
 
           <button
@@ -452,7 +541,11 @@ export default function App() {
             onClick={() => setIsDossierOpen(true)}
             title="Export Official Municipal Planning Dossier"
           >
-            <span>▤</span> Export Dossier ↗
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+              <polyline points="14 2 14 8 20 8" />
+            </svg>
+            <span>Export Dossier ↗</span>
           </button>
         </div>
       </header>
@@ -562,53 +655,99 @@ export default function App() {
               <div className="overview-action-card" onClick={() => setActiveNav("digital-twin")}>
                 <div>
                   <div className="overview-card-header">
-                    <div className="overview-card-icon purple">🌐</div>
+                    <div className="overview-card-icon purple">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21" />
+                        <line x1="9" y1="3" x2="9" y2="18" />
+                        <line x1="15" y1="6" x2="15" y2="21" />
+                      </svg>
+                    </div>
                     <h4>1. Explore 2D & 3D Digital Twin</h4>
                   </div>
                   <p>
                     Interactive 2D GIS and 3D WebGL Digital Twin with 11,584 extruded building footprints, volumetric flood inundation simulation, and corridor conflict envelopes.
                   </p>
                 </div>
-                <div className="overview-card-cta">Open 3D Digital Twin Workspace ↗</div>
+                <div className="overview-card-cta">
+                  <span>Open 3D Digital Twin Workspace</span>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+                </div>
               </div>
 
               <div className="overview-action-card" onClick={() => setActiveNav("scenario-lab")}>
                 <div>
                   <div className="overview-card-header">
-                    <div className="overview-card-icon green">◉</div>
+                    <div className="overview-card-icon green">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <line x1="4" y1="21" x2="4" y2="14" />
+                        <line x1="4" y1="10" x2="4" y2="3" />
+                        <line x1="12" y1="21" x2="12" y2="12" />
+                        <line x1="12" y1="8" x2="12" y2="3" />
+                        <line x1="20" y1="21" x2="20" y2="16" />
+                        <line x1="20" y1="12" x2="20" y2="3" />
+                        <line x1="1" y1="14" x2="7" y2="14" />
+                        <line x1="9" y1="8" x2="15" y2="8" />
+                        <line x1="17" y1="16" x2="23" y2="16" />
+                      </svg>
+                    </div>
                     <h4>2. Test Policy Scenarios</h4>
                   </div>
                   <p>
                     Evaluate ward-wide impact of NDVI +20% (Urban Canopy), Road Density -20% (Porous Pavements), and Building Density -20%.
                   </p>
                 </div>
-                <div className="overview-card-cta">Compare Policy Scenarios ↗</div>
+                <div className="overview-card-cta">
+                  <span>Compare Policy Scenarios</span>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+                </div>
               </div>
 
               <div className="overview-action-card" onClick={() => setActiveNav("infrastructure")}>
                 <div>
                   <div className="overview-card-header">
-                    <div className="overview-card-icon orange">⎈</div>
+                    <div className="overview-card-icon orange">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M4 19L8 5" />
+                        <path d="M16 5L20 19" />
+                        <path d="M12 7V9" />
+                        <path d="M12 13V15" />
+                        <path d="M12 19V21" />
+                      </svg>
+                    </div>
                     <h4>3. Screen Infrastructure</h4>
                   </div>
                   <p>
                     Deterministic GIS screening for Milan Subway Bypass & JVLR Express: calculate structural building conflicts and flood exposure.
                   </p>
                 </div>
-                <div className="overview-card-cta">Run Corridor Feasibility ↗</div>
+                <div className="overview-card-cta">
+                  <span>Run Corridor Feasibility</span>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+                </div>
               </div>
 
               <div className="overview-action-card" onClick={() => setActiveNav("ai-copilot")}>
                 <div>
                   <div className="overview-card-header">
-                    <div className="overview-card-icon cyan">✦</div>
+                    <div className="overview-card-icon cyan">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M12 2a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2 2 2 0 0 1-2-2V4a2 2 0 0 1 2-2z" />
+                        <rect x="3" y="8" width="18" height="12" rx="3" />
+                        <circle cx="9" cy="14" r="1" fill="currentColor" />
+                        <circle cx="15" cy="14" r="1" fill="currentColor" />
+                        <path d="M8 18h8" />
+                      </svg>
+                    </div>
                     <h4>4. Consult AI Copilot</h4>
                   </div>
                   <p>
                     Ask spatial planning questions, find optimal hospital candidate sites, and diagnose localized flood drivers with Gemini AI.
                   </p>
                 </div>
-                <div className="overview-card-cta">Launch AI Planning Copilot ↗</div>
+                <div className="overview-card-cta">
+                  <span>Launch AI Planning Copilot</span>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+                </div>
               </div>
             </div>
 

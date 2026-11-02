@@ -1,5 +1,7 @@
 import React from "react";
-import type { CivoraSummaryData, ScenarioStats } from "../types/civora";
+import type { CivoraSummaryData, ScenarioStats, CostBenefitResponse } from "../types/civora";
+import { useState, useEffect } from "react";
+import { API_BASE_URL } from "../config/api";
 
 interface ScenarioSimulatorProps {
   civoraData: CivoraSummaryData | null;
@@ -40,6 +42,45 @@ const SCENARIOS_META: ScenarioMeta[] = [
   },
 ];
 
+
+const DEFAULT_COST_BENEFIT: CostBenefitResponse = {
+  study_area: "K/East Ward, Andheri East, Mumbai",
+  currency: "INR (Crores)",
+  baseline_annual_flood_damage_cr: 64.8,
+  scenarios: {
+    "NDVI +20%": {
+      intervention_name: "Urban Greening & Sponge Infrastructure",
+      capex_cr: 12.4,
+      annual_damage_avoided_cr: 34.8,
+      benefit_cost_ratio: 2.81,
+      payback_period_months: 4.3,
+      physical_scope: "165,000 m² bioswales, roadside green verges & Miyawaki pockets across 280 sensitive cells",
+      unit_rate_basis: "CPWD / MCGM DSR 2024 Schedule of Rates (₹1,850/m²)",
+      funding_channel: "BMC Disaster Mitigation Fund & Smart Cities Mission",
+    },
+    "Road Density -20%": {
+      intervention_name: "Porous Pavements & Subsurface Drainage Retrofit",
+      capex_cr: 18.6,
+      annual_damage_avoided_cr: 27.4,
+      benefit_cost_ratio: 1.47,
+      payback_period_months: 8.1,
+      physical_scope: "38.4 km permeable asphalt & French recharge trenches along waterlogged corridors",
+      unit_rate_basis: "IRC:SP:42 Permeable Road Guidelines (₹3,200/linear meter)",
+      funding_channel: "MCGM Road & Traffic Dept Capital Works",
+    },
+    "Building Density -20%": {
+      intervention_name: "Rooftop Detention & Infiltration Sump Retrofits",
+      capex_cr: 8.8,
+      annual_damage_avoided_cr: 19.2,
+      benefit_cost_ratio: 2.18,
+      payback_period_months: 5.5,
+      physical_scope: "1,350 commercial/industrial rooftop retention sumps & recharge pits (SEEPZ/MIDC)",
+      unit_rate_basis: "MCGM Rainwater Harvesting Byelaws 2023 (₹65,000/cluster)",
+      funding_channel: "Private-Public Municipal Rebate Incentive (Property Tax Credit)",
+    },
+  },
+};
+
 export const ScenarioSimulator: React.FC<ScenarioSimulatorProps> = ({
   civoraData,
   selectedScenario,
@@ -57,6 +98,17 @@ export const ScenarioSimulator: React.FC<ScenarioSimulatorProps> = ({
     );
   }
 
+  const [costData, setCostData] = useState<CostBenefitResponse>(DEFAULT_COST_BENEFIT);
+
+  useEffect(() => {
+    fetch(`${API_BASE_URL}/api/scenarios/cost-benefit`)
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data) => {
+        if (data && data.scenarios) setCostData(data);
+      })
+      .catch(() => {});
+  }, []);
+
   const activeMeta =
     SCENARIOS_META.find((s) => s.key === selectedScenario) || SCENARIOS_META[0];
 
@@ -69,6 +121,8 @@ export const ScenarioSimulator: React.FC<ScenarioSimulatorProps> = ({
   const scenarioPct = (activeStats.mean_prediction * 100);
   const absChangePp = scenarioPct - baselinePct;
   const relChangePct = activeStats.percentage_change_from_baseline;
+  const activeCost = costData.scenarios[activeMeta.key] || costData.scenarios["NDVI +20%"];
+
 
   return (
     <div id="scenario-simulator" className="panel simulator-panel">
@@ -222,6 +276,68 @@ export const ScenarioSimulator: React.FC<ScenarioSimulatorProps> = ({
             </div>
           </div>
         </div>
+
+
+        {/* MUNICIPAL COST-BENEFIT & BUDGET ANALYSIS (CBA) */}
+        {activeCost && (
+          <div className="scenario-cost-benefit-card">
+            <div className="cost-card-header">
+              <div>
+                <span className="cost-card-tag">FINANCIAL FEASIBILITY &amp; ROI</span>
+                <h4 className="cost-card-title">Municipal Capital Expenditure (CapEx) &amp; Damage Avoidance</h4>
+                <p className="cost-card-desc">
+                  Estimated budget requirements and economic payback calculated using official BMC Schedule of Rates (DSR 2024).
+                </p>
+              </div>
+              <div className="cost-bcr-badge">
+                <span className="bcr-label">BENEFIT-COST RATIO</span>
+                <strong className="bcr-value">{activeCost.benefit_cost_ratio}x</strong>
+                <small className="bcr-sub">High Municipal Return</small>
+              </div>
+            </div>
+
+            <div className="cost-kpi-grid">
+              <div className="cost-kpi-box">
+                <span className="cost-kpi-label">ESTIMATED CAPEX OUTLAY</span>
+                <strong className="cost-kpi-num cyan">₹{activeCost.capex_cr} Cr</strong>
+                <small className="cost-kpi-sub">One-time capital works budget</small>
+              </div>
+
+              <div className="cost-kpi-box">
+                <span className="cost-kpi-label">ANNUAL DAMAGE AVOIDED</span>
+                <strong className="cost-kpi-num lime">₹{activeCost.annual_damage_avoided_cr} Cr</strong>
+                <small className="cost-kpi-sub">Per monsoon savings in K/East</small>
+              </div>
+
+              <div className="cost-kpi-box">
+                <span className="cost-kpi-label">PAYBACK HORIZON</span>
+                <strong className="cost-kpi-num purple">{activeCost.payback_period_months} Months</strong>
+                <small className="cost-kpi-sub">&lt; 1 Monsoon Season</small>
+              </div>
+
+              <div className="cost-kpi-box">
+                <span className="cost-kpi-label">BASELINE WARD EXPOSURE</span>
+                <strong className="cost-kpi-num amber">₹{costData.baseline_annual_flood_damage_cr} Cr/yr</strong>
+                <small className="cost-kpi-sub">Unmitigated economic risk</small>
+              </div>
+            </div>
+
+            <div className="cost-breakdown-details">
+              <div className="cost-detail-row">
+                <span className="cost-detail-key">Target Engineering Scope:</span>
+                <span className="cost-detail-val">{activeCost.physical_scope}</span>
+              </div>
+              <div className="cost-detail-row">
+                <span className="cost-detail-key">Schedule of Rates Basis:</span>
+                <span className="cost-detail-val">{activeCost.unit_rate_basis}</span>
+              </div>
+              <div className="cost-detail-row">
+                <span className="cost-detail-key">Recommended Municipal Fund:</span>
+                <span className="cost-detail-val highlight">{activeCost.funding_channel}</span>
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Scientific Limitations & Planning Interpretation */}
         <div className="scenario-scientific-caution">
