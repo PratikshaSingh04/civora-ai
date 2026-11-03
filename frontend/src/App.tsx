@@ -1,3 +1,4 @@
+import { API_BASE_URL } from "./config/api";
 import { useEffect, useState, useMemo, useCallback } from "react";
 import "./App.css";
 
@@ -13,7 +14,6 @@ import { AuthModal } from "./components/AuthModal";
 import { QuickstartBanner } from "./components/QuickstartBanner";
 import { CorridorFeasibilityLab } from "./components/CorridorFeasibilityLab";
 import { ArchitectureModal } from "./components/ArchitectureModal";
-import { API_BASE_URL } from "./config/api";
 
 import type {
   CivoraSummaryData,
@@ -286,15 +286,15 @@ export default function App() {
   };
 
   const navLabels: Record<NavView, string> = {
-    overview: "Urban Intelligence Dashboard",
+    overview: "Dashboard",
     "digital-twin": "Digital Twin GIS Map",
-    "scenario-lab": "Scenario Simulation Laboratory",
-    "what-if": "Scenario Comparison & What-If Sandbox",
-    infrastructure: "Infrastructure & Corridor Screening Lab",
+    "scenario-lab": "Scenario Simulation",
+    "what-if": "Scenario Comparison & Sandbox",
+    infrastructure: "Infrastructure Lab",
     "ai-copilot": "AI Planning Copilot",
-    validation: "Explainable AI (SHAP) & Validation",
-    dossiers: "Municipal Planning Dossiers",
-    "data-provenance": "Spatial Data & Provenance Catalog",
+    validation: "Explainable AI (SHAP)",
+    dossiers: "Planning Dossiers",
+    "data-provenance": "Data & Provenance Catalog",
   };
 
   return (
@@ -670,7 +670,7 @@ export default function App() {
                 </div>
                 <div className="overview-card-cta">
                   <span>Open 3D Digital Twin Workspace</span>
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="7" y1="17" x2="17" y2="7" /><polyline points="7 7 17 7 17 17" /></svg>
                 </div>
               </div>
 
@@ -698,7 +698,7 @@ export default function App() {
                 </div>
                 <div className="overview-card-cta">
                   <span>Compare Policy Scenarios</span>
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="7" y1="17" x2="17" y2="7" /><polyline points="7 7 17 7 17 17" /></svg>
                 </div>
               </div>
 
@@ -722,7 +722,7 @@ export default function App() {
                 </div>
                 <div className="overview-card-cta">
                   <span>Run Corridor Feasibility</span>
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="7" y1="17" x2="17" y2="7" /><polyline points="7 7 17 7 17 17" /></svg>
                 </div>
               </div>
 
@@ -746,7 +746,7 @@ export default function App() {
                 </div>
                 <div className="overview-card-cta">
                   <span>Launch AI Planning Copilot</span>
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="7" y1="17" x2="17" y2="7" /><polyline points="7 7 17 7 17 17" /></svg>
                 </div>
               </div>
             </div>
@@ -913,73 +913,73 @@ export default function App() {
                     <span>▾</span>
                   </button>
 
-                {showLayerMenu && (
-                  <div className="layer-menu-dropdown">
-                    <button
-                      type="button"
-                      className={activeLayer === "scenario" ? "active" : ""}
-                      onClick={() => {
-                        setActiveLayer("scenario");
-                        setShowLayerMenu(false);
-                      }}
-                    >
-                      Dominant Scenario Layer
-                    </button>
-                    <button
-                      type="button"
-                      className={activeLayer === "baseline" ? "active" : ""}
-                      onClick={() => {
-                        setActiveLayer("baseline");
-                        setShowLayerMenu(false);
-                      }}
-                    >
-                      Baseline Flood Probability Layer
-                    </button>
-                    <button
-                      type="button"
-                      className={activeLayer === "difference" ? "active" : ""}
-                      onClick={() => {
-                        setActiveLayer("difference");
-                        setShowLayerMenu(false);
-                      }}
-                    >
-                      {selectedScenario} Spatial Difference
-                    </button>
-                    <button
-                      type="button"
-                      className={activeLayer === "ndvi" ? "active" : ""}
-                      onClick={() => {
-                        setActiveLayer("ndvi");
-                        setShowLayerMenu(false);
-                      }}
-                    >
-                      NDVI Scenario Impact Layer
-                    </button>
-                    <button
-                      type="button"
-                      className={activeLayer === "road" ? "active" : ""}
-                      onClick={() => {
-                        setActiveLayer("road");
-                        setShowLayerMenu(false);
-                      }}
-                    >
-                      Road Density Scenario Impact Layer
-                    </button>
-                    <button
-                      type="button"
-                      className={activeLayer === "building" ? "active" : ""}
-                      onClick={() => {
-                        setActiveLayer("building");
-                        setShowLayerMenu(false);
-                      }}
-                    >
-                      Building Density Scenario Impact Layer
-                    </button>
-                  </div>
-                )}
+                  {showLayerMenu && (
+                    <div className="layer-menu-dropdown">
+                      <button
+                        type="button"
+                        className={activeLayer === "scenario" ? "active" : ""}
+                        onClick={() => {
+                          setActiveLayer("scenario");
+                          setShowLayerMenu(false);
+                        }}
+                      >
+                        Dominant Scenario Layer
+                      </button>
+                      <button
+                        type="button"
+                        className={activeLayer === "baseline" ? "active" : ""}
+                        onClick={() => {
+                          setActiveLayer("baseline");
+                          setShowLayerMenu(false);
+                        }}
+                      >
+                        Baseline Flood Probability Layer
+                      </button>
+                      <button
+                        type="button"
+                        className={activeLayer === "difference" ? "active" : ""}
+                        onClick={() => {
+                          setActiveLayer("difference");
+                          setShowLayerMenu(false);
+                        }}
+                      >
+                        {selectedScenario} Spatial Difference
+                      </button>
+                      <button
+                        type="button"
+                        className={activeLayer === "ndvi" ? "active" : ""}
+                        onClick={() => {
+                          setActiveLayer("ndvi");
+                          setShowLayerMenu(false);
+                        }}
+                      >
+                        NDVI Scenario Impact Layer
+                      </button>
+                      <button
+                        type="button"
+                        className={activeLayer === "road" ? "active" : ""}
+                        onClick={() => {
+                          setActiveLayer("road");
+                          setShowLayerMenu(false);
+                        }}
+                      >
+                        Road Density Scenario Impact Layer
+                      </button>
+                      <button
+                        type="button"
+                        className={activeLayer === "building" ? "active" : ""}
+                        onClick={() => {
+                          setActiveLayer("building");
+                          setShowLayerMenu(false);
+                        }}
+                      >
+                        Building Density Scenario Impact Layer
+                      </button>
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
-          </div>
 
             {/* Split View: Map + Inspector */}
             <div className="twin-workbench">

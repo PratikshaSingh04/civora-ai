@@ -1,7 +1,7 @@
+import { API_BASE_URL } from "../config/api";
 import React from "react";
 import type { CivoraSummaryData, ScenarioStats, CostBenefitResponse } from "../types/civora";
 import { useState, useEffect } from "react";
-import { API_BASE_URL } from "../config/api";
 
 interface ScenarioSimulatorProps {
   civoraData: CivoraSummaryData | null;

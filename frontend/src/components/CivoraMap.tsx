@@ -568,10 +568,10 @@ export default function CivoraMap({
           lm.category === "hospital"
             ? "🏥"
             : lm.category === "flood_spot"
-            ? "💧"
-            : lm.category === "transit"
-            ? "🛣️"
-            : "🏛️",
+              ? "💧"
+              : lm.category === "transit"
+                ? "🛣️"
+                : "🏛️",
       }));
     }
 
@@ -600,10 +600,10 @@ export default function CivoraMap({
             lm.category === "hospital"
               ? "🏥"
               : lm.category === "flood_spot"
-              ? "💧"
-              : lm.category === "transit"
-              ? "🛣️"
-              : "🏛️",
+                ? "💧"
+                : lm.category === "transit"
+                  ? "🛣️"
+                  : "🏛️",
         });
       }
     }
@@ -1011,7 +1011,7 @@ export default function CivoraMap({
             }}
             title="Switch to 2D Cartographic GIS Map"
           >
-            🗺️ 2D Map
+            2D Map
           </button>
           <button
             type="button"
@@ -1026,7 +1026,7 @@ export default function CivoraMap({
             }}
             title="Switch to 3D Digital Twin with 11,584 Extruded Buildings"
           >
-            🌐 3D Digital Twin
+            3D Digital Twin
           </button>
         </div>
 
@@ -1039,7 +1039,7 @@ export default function CivoraMap({
               onClick={() => setBasemap3D("dark")}
               title="Clean Dark Architecture 3D Basemap"
             >
-              🌃 Dark 3D
+              Dark 3D
             </button>
             <button
               type="button"
@@ -1047,7 +1047,7 @@ export default function CivoraMap({
               onClick={() => setBasemap3D("satellite")}
               title="Photorealistic Satellite 3D Basemap"
             >
-              🛰️ Satellite 3D
+              Satellite 3D
             </button>
           </div>
         ) : (
@@ -1105,452 +1105,452 @@ export default function CivoraMap({
         </div>
       ) : (
         <>
-      {/* Layer Visibility Toggles */}
-      <div className="map-layer-toggles">
-        <label className={`toggle-chip ${showBoundary ? "active" : ""}`}>
-          <input
-            type="checkbox"
-            checked={showBoundary}
-            onChange={(e) => setShowBoundary(e.target.checked)}
-          />
-          <span>Ward Boundary</span>
-        </label>
+          {/* Layer Visibility Toggles */}
+          <div className="map-layer-toggles">
+            <label className={`toggle-chip ${showBoundary ? "active" : ""}`}>
+              <input
+                type="checkbox"
+                checked={showBoundary}
+                onChange={(e) => setShowBoundary(e.target.checked)}
+              />
+              <span>Ward Boundary</span>
+            </label>
 
-        <label className={`toggle-chip ${showRoads ? "active" : ""}`}>
-          <input
-            type="checkbox"
-            checked={showRoads}
-            onChange={(e) => setShowRoads(e.target.checked)}
-          />
-          <span>Road Network</span>
-        </label>
+            <label className={`toggle-chip ${showRoads ? "active" : ""}`}>
+              <input
+                type="checkbox"
+                checked={showRoads}
+                onChange={(e) => setShowRoads(e.target.checked)}
+              />
+              <span>Road Network</span>
+            </label>
 
-        <label className={`toggle-chip ${showFloodSpots ? "active" : ""}`}>
-          <input
-            type="checkbox"
-            checked={showFloodSpots}
-            onChange={(e) => setShowFloodSpots(e.target.checked)}
-          />
-          <span>BMC Flood Spots</span>
-        </label>
+            <label className={`toggle-chip ${showFloodSpots ? "active" : ""}`}>
+              <input
+                type="checkbox"
+                checked={showFloodSpots}
+                onChange={(e) => setShowFloodSpots(e.target.checked)}
+              />
+              <span>BMC Flood Spots</span>
+            </label>
 
-        <label className={`toggle-chip ${showBuildings ? "active" : ""}`}>
-          <input
-            type="checkbox"
-            checked={showBuildings}
-            disabled={loadingBuildings}
-            onChange={handleToggleBuildings}
-          />
-          <span>{loadingBuildings ? "Loading Buildings..." : "Building Footprints"}</span>
-        </label>
-      </div>
+            <label className={`toggle-chip ${showBuildings ? "active" : ""}`}>
+              <input
+                type="checkbox"
+                checked={showBuildings}
+                disabled={loadingBuildings}
+                onChange={handleToggleBuildings}
+              />
+              <span>{loadingBuildings ? "Loading Buildings..." : "Building Footprints"}</span>
+            </label>
+          </div>
 
-      {/* Leaflet Map Container */}
-      <MapContainer
-        className="civora-map"
-        center={K_EAST_CENTER}
-        zoom={13}
-        minZoom={11}
-        maxZoom={18}
-        scrollWheelZoom={true}
-        maxBounds={K_EAST_BOUNDS.pad(0.3)}
-      >
-        {/* Base Map Tile Layer */}
-        <TileLayer
-          key={`base-${basemap}-${BASEMAPS[basemap].url}`}
-          attribution={BASEMAPS[basemap].attribution}
-          url={BASEMAPS[basemap].url}
-        />
+          {/* Leaflet Map Container */}
+          <MapContainer
+            className="civora-map"
+            center={K_EAST_CENTER}
+            zoom={13}
+            minZoom={11}
+            maxZoom={18}
+            scrollWheelZoom={true}
+            maxBounds={K_EAST_BOUNDS.pad(0.3)}
+          >
+            {/* Base Map Tile Layer */}
+            <TileLayer
+              key={`base-${basemap}-${BASEMAPS[basemap].url}`}
+              attribution={BASEMAPS[basemap].attribution}
+              url={BASEMAPS[basemap].url}
+            />
 
-        {/* Optional Reference Labels Layer (for Esri Canvas) */}
-        {BASEMAPS[basemap].referenceUrl && (
-          <TileLayer
-            key={`ref-${basemap}-${BASEMAPS[basemap].referenceUrl}`}
-            attribution=""
-            url={BASEMAPS[basemap].referenceUrl!}
-          />
-        )}
+            {/* Optional Reference Labels Layer (for Esri Canvas) */}
+            {BASEMAPS[basemap].referenceUrl && (
+              <TileLayer
+                key={`ref-${basemap}-${BASEMAPS[basemap].referenceUrl}`}
+                attribution=""
+                url={BASEMAPS[basemap].referenceUrl!}
+              />
+            )}
 
-        {/* Map View & Camera Controller */}
-        <MapController
-          selectedGridId={selectedGridId}
-          gridData={gridData}
-          triggerFitBounds={triggerFitBounds}
-          triggerResetView={triggerResetView}
-          activeCorridorData={activeCorridorData}
-          highlightedSite={highlightedSite}
-          searchFlyTarget={searchFlyTarget}
-        />
+            {/* Map View & Camera Controller */}
+            <MapController
+              selectedGridId={selectedGridId}
+              gridData={gridData}
+              triggerFitBounds={triggerFitBounds}
+              triggerResetView={triggerResetView}
+              activeCorridorData={activeCorridorData}
+              highlightedSite={highlightedSite}
+              searchFlyTarget={searchFlyTarget}
+            />
 
-        {/* K/East Administrative Boundary Layer */}
-        {showBoundary && boundaryData && (
-          <GeoJSON
-            key="boundary-layer"
-            data={boundaryData}
-            style={{
-              color: "#00f0ff",
-              weight: 2.2,
-              opacity: 0.9,
-              fillColor: "transparent",
-              dashArray: "6, 4",
-            }}
-          />
-        )}
-
-        {/* Building Footprints Layer (Optional / Heavy) */}
-        {showBuildings && buildingsData && (
-          <GeoJSON
-            key="buildings-layer"
-            data={buildingsData}
-            style={{
-              color: "#334155",
-              weight: 0.6,
-              opacity: 0.8,
-              fillColor: "#475569",
-              fillOpacity: 0.35,
-            }}
-            onEachFeature={(feature, layer) => {
-              const bldgId = feature.properties?.building_id;
-              const area = feature.properties?.area_m2;
-              layer.bindTooltip(
-                `<div class="map-popup-text"><strong>Building ${bldgId}</strong><br/>Footprint Area: ${area} m²</div>`
-              );
-            }}
-          />
-        )}
-
-        {/* Verified Road Network Layer */}
-        {showRoads && roadsData && (
-          <GeoJSON
-            key="roads-layer"
-            data={roadsData}
-            style={(feature) => {
-              const highway = feature?.properties?.highway;
-              const isMajor = highway === "primary" || highway === "secondary";
-              return {
-                color: isMajor ? "#38bdf8" : "#64748b",
-                weight: isMajor ? 2.5 : 1.2,
-                opacity: 0.75,
-              };
-            }}
-            onEachFeature={(feature, layer) => {
-              const name = feature.properties?.name;
-              const highway = feature.properties?.highway;
-              if (name && name !== "Unnamed Road") {
-                layer.bindTooltip(
-                  `<div class="map-popup-text"><strong>${name}</strong><br/><small>Class: ${highway}</small></div>`,
-                  { sticky: true }
-                );
-              }
-            }}
-          />
-        )}
-
-        {/* The 405 Scenario Grid Cells */}
-        <GeoJSON
-          key={`grid-layer-${activeLayer}-${selectedScenario}`}
-          ref={geoJsonLayerRef}
-          data={gridData}
-          style={getFeatureStyle}
-          onEachFeature={onEachGridFeature}
-        />
-
-        {/* Verified BMC Historical Flooding Spots */}
-        {showFloodSpots &&
-          floodSpotsData &&
-          floodSpotsData.features.map((feature, index) => {
-            const props = feature.properties as {
-              centroid?: [number, number];
-              fid?: number;
-              name?: string;
-              location?: string;
-              depth?: string;
-            } | null;
-            const centroid = props?.centroid;
-            if (!centroid) return null;
-            const fid = props?.fid ?? index;
-            const name = props?.name ?? "Flood Spot";
-            const location = props?.location;
-            const depth = props?.depth ?? "Recorded waterlogging";
-
-            return (
-              <CircleMarker
-                key={`flood-spot-${fid}`}
-                center={[centroid[0], centroid[1]]}
-                radius={6}
-                pathOptions={{
-                  color: "#ffffff",
-                  weight: 1.5,
-                  fillColor: "#ef4444",
-                  fillOpacity: 0.9,
-                }}
-              >
-                <Popup>
-                  <div className="flood-spot-popup">
-                    <span className="flood-spot-tag">BMC Historical Waterlogging Spot</span>
-                    <h4>{name}</h4>
-                    {location && <p className="spot-loc">{location}</p>}
-                    <div className="spot-depth">
-                      <span>Waterlogging Level:</span>
-                      <strong>{depth}</strong>
-                    </div>
-                  </div>
-                </Popup>
-                <Tooltip direction="top">
-                  <div>
-                    <strong>[Spot] {name}</strong>
-                    <br />
-                    <small>{depth}</small>
-                  </div>
-                </Tooltip>
-              </CircleMarker>
-            );
-          })}
-
-        {/* Proposed Infrastructure Corridor Buffer Band */}
-        {activeCorridorData?.geojson?.corridor_buffer && (
-          <GeoJSON
-            key={`corridor-buffer-${activeCorridorData.alignment_name}`}
-            data={activeCorridorData.geojson.corridor_buffer}
-            style={{
-              color: "#a855f7",
-              weight: 2,
-              dashArray: "6, 6",
-              fillColor: "#c084fc",
-              fillOpacity: 0.32,
-            }}
-          />
-        )}
-
-        {/* Proposed Infrastructure Corridor Centerline */}
-        {activeCorridorData?.geojson?.line && (
-          <GeoJSON
-            key={`corridor-line-${activeCorridorData.alignment_name}`}
-            data={activeCorridorData.geojson.line}
-            style={{
-              color: "#38bdf8",
-              weight: 4.5,
-              opacity: 0.95,
-            }}
-          />
-        )}
-
-        {/* Highlighted Facility Site (e.g. School, Hospital, Sponge Park MCE Recommendation) */}
-        {highlightedSite && highlightedSite.center && (() => {
-          const textLower = (highlightedSite.justification || "").toLowerCase();
-          const isSchool = textLower.includes("school") || textLower.includes("education") || textLower.includes("campus");
-          const isHospital = textLower.includes("hospital") || textLower.includes("clinic") || textLower.includes("health") || textLower.includes("medical");
-          const isSponge = textLower.includes("sponge") || textLower.includes("retention") || textLower.includes("basin");
-
-          const tagText = isSchool
-            ? "✦ Recommended School Site"
-            : isHospital
-            ? "⌖ Recommended Hospital Site"
-            : isSponge
-            ? "◉ Proposed Sponge Park Basin"
-            : "◈ Recommended Facility Site";
-
-          const beaconColor = isSchool ? "#6366f1" : isHospital ? "#10b981" : isSponge ? "#06b6d4" : "#10b981";
-
-          return (
-            <>
-              {/* Outer Pulsing Aura Ring */}
-              <CircleMarker
-                center={highlightedSite.center}
-                radius={26}
-                pathOptions={{
-                  color: beaconColor,
-                  weight: 2,
-                  fillColor: beaconColor,
-                  fillOpacity: 0.18,
-                  dashArray: "5, 5",
+            {/* K/East Administrative Boundary Layer */}
+            {showBoundary && boundaryData && (
+              <GeoJSON
+                key="boundary-layer"
+                data={boundaryData}
+                style={{
+                  color: "#00f0ff",
+                  weight: 2.2,
+                  opacity: 0.9,
+                  fillColor: "transparent",
+                  dashArray: "6, 4",
                 }}
               />
-              {/* Core Facility Marker */}
-              <CircleMarker
-                center={highlightedSite.center}
-                radius={15}
-                pathOptions={{
-                  color: "#ffffff",
-                  weight: 3,
-                  fillColor: beaconColor,
-                  fillOpacity: 0.9,
+            )}
+
+            {/* Building Footprints Layer (Optional / Heavy) */}
+            {showBuildings && buildingsData && (
+              <GeoJSON
+                key="buildings-layer"
+                data={buildingsData}
+                style={{
+                  color: "#334155",
+                  weight: 0.6,
+                  opacity: 0.8,
+                  fillColor: "#475569",
+                  fillOpacity: 0.35,
                 }}
-              >
-                <Popup>
-                  <div className="flood-spot-popup">
-                    <span className="flood-spot-tag" style={{ background: beaconColor, color: "#ffffff" }}>
-                      {tagText}
-                    </span>
-                    <h4>Cell {highlightedSite.grid_id}</h4>
-                    <p className="spot-loc">{highlightedSite.justification}</p>
-                    <div className="spot-depth">
-                      <span>Suitability Score:</span>
-                      <strong>{highlightedSite.suitability_score}/100</strong>
-                    </div>
-                    <div className="spot-depth">
-                      <span>Baseline Flood Risk:</span>
-                      <strong>{highlightedSite.flood_probability_pct}%</strong>
-                    </div>
-                    <div className="spot-depth">
-                      <span>Terrain Elevation:</span>
-                      <strong>{highlightedSite.elevation_m}m AMSL</strong>
-                    </div>
+                onEachFeature={(feature, layer) => {
+                  const bldgId = feature.properties?.building_id;
+                  const area = feature.properties?.area_m2;
+                  layer.bindTooltip(
+                    `<div class="map-popup-text"><strong>Building ${bldgId}</strong><br/>Footprint Area: ${area} m²</div>`
+                  );
+                }}
+              />
+            )}
+
+            {/* Verified Road Network Layer */}
+            {showRoads && roadsData && (
+              <GeoJSON
+                key="roads-layer"
+                data={roadsData}
+                style={(feature) => {
+                  const highway = feature?.properties?.highway;
+                  const isMajor = highway === "primary" || highway === "secondary";
+                  return {
+                    color: isMajor ? "#38bdf8" : "#64748b",
+                    weight: isMajor ? 2.5 : 1.2,
+                    opacity: 0.75,
+                  };
+                }}
+                onEachFeature={(feature, layer) => {
+                  const name = feature.properties?.name;
+                  const highway = feature.properties?.highway;
+                  if (name && name !== "Unnamed Road") {
+                    layer.bindTooltip(
+                      `<div class="map-popup-text"><strong>${name}</strong><br/><small>Class: ${highway}</small></div>`,
+                      { sticky: true }
+                    );
+                  }
+                }}
+              />
+            )}
+
+            {/* The 405 Scenario Grid Cells */}
+            <GeoJSON
+              key={`grid-layer-${activeLayer}-${selectedScenario}`}
+              ref={geoJsonLayerRef}
+              data={gridData}
+              style={getFeatureStyle}
+              onEachFeature={onEachGridFeature}
+            />
+
+            {/* Verified BMC Historical Flooding Spots */}
+            {showFloodSpots &&
+              floodSpotsData &&
+              floodSpotsData.features.map((feature, index) => {
+                const props = feature.properties as {
+                  centroid?: [number, number];
+                  fid?: number;
+                  name?: string;
+                  location?: string;
+                  depth?: string;
+                } | null;
+                const centroid = props?.centroid;
+                if (!centroid) return null;
+                const fid = props?.fid ?? index;
+                const name = props?.name ?? "Flood Spot";
+                const location = props?.location;
+                const depth = props?.depth ?? "Recorded waterlogging";
+
+                return (
+                  <CircleMarker
+                    key={`flood-spot-${fid}`}
+                    center={[centroid[0], centroid[1]]}
+                    radius={6}
+                    pathOptions={{
+                      color: "#ffffff",
+                      weight: 1.5,
+                      fillColor: "#ef4444",
+                      fillOpacity: 0.9,
+                    }}
+                  >
+                    <Popup>
+                      <div className="flood-spot-popup">
+                        <span className="flood-spot-tag">BMC Historical Waterlogging Spot</span>
+                        <h4>{name}</h4>
+                        {location && <p className="spot-loc">{location}</p>}
+                        <div className="spot-depth">
+                          <span>Waterlogging Level:</span>
+                          <strong>{depth}</strong>
+                        </div>
+                      </div>
+                    </Popup>
+                    <Tooltip direction="top">
+                      <div>
+                        <strong>[Spot] {name}</strong>
+                        <br />
+                        <small>{depth}</small>
+                      </div>
+                    </Tooltip>
+                  </CircleMarker>
+                );
+              })}
+
+            {/* Proposed Infrastructure Corridor Buffer Band */}
+            {activeCorridorData?.geojson?.corridor_buffer && (
+              <GeoJSON
+                key={`corridor-buffer-${activeCorridorData.alignment_name}`}
+                data={activeCorridorData.geojson.corridor_buffer}
+                style={{
+                  color: "#a855f7",
+                  weight: 2,
+                  dashArray: "6, 6",
+                  fillColor: "#c084fc",
+                  fillOpacity: 0.32,
+                }}
+              />
+            )}
+
+            {/* Proposed Infrastructure Corridor Centerline */}
+            {activeCorridorData?.geojson?.line && (
+              <GeoJSON
+                key={`corridor-line-${activeCorridorData.alignment_name}`}
+                data={activeCorridorData.geojson.line}
+                style={{
+                  color: "#38bdf8",
+                  weight: 4.5,
+                  opacity: 0.95,
+                }}
+              />
+            )}
+
+            {/* Highlighted Facility Site (e.g. School, Hospital, Sponge Park MCE Recommendation) */}
+            {highlightedSite && highlightedSite.center && (() => {
+              const textLower = (highlightedSite.justification || "").toLowerCase();
+              const isSchool = textLower.includes("school") || textLower.includes("education") || textLower.includes("campus");
+              const isHospital = textLower.includes("hospital") || textLower.includes("clinic") || textLower.includes("health") || textLower.includes("medical");
+              const isSponge = textLower.includes("sponge") || textLower.includes("retention") || textLower.includes("basin");
+
+              const tagText = isSchool
+                ? "✦ Recommended School Site"
+                : isHospital
+                  ? "⌖ Recommended Hospital Site"
+                  : isSponge
+                    ? "◉ Proposed Sponge Park Basin"
+                    : "◈ Recommended Facility Site";
+
+              const beaconColor = isSchool ? "#6366f1" : isHospital ? "#10b981" : isSponge ? "#06b6d4" : "#10b981";
+
+              return (
+                <>
+                  {/* Outer Pulsing Aura Ring */}
+                  <CircleMarker
+                    center={highlightedSite.center}
+                    radius={26}
+                    pathOptions={{
+                      color: beaconColor,
+                      weight: 2,
+                      fillColor: beaconColor,
+                      fillOpacity: 0.18,
+                      dashArray: "5, 5",
+                    }}
+                  />
+                  {/* Core Facility Marker */}
+                  <CircleMarker
+                    center={highlightedSite.center}
+                    radius={15}
+                    pathOptions={{
+                      color: "#ffffff",
+                      weight: 3,
+                      fillColor: beaconColor,
+                      fillOpacity: 0.9,
+                    }}
+                  >
+                    <Popup>
+                      <div className="flood-spot-popup">
+                        <span className="flood-spot-tag" style={{ background: beaconColor, color: "#ffffff" }}>
+                          {tagText}
+                        </span>
+                        <h4>Cell {highlightedSite.grid_id}</h4>
+                        <p className="spot-loc">{highlightedSite.justification}</p>
+                        <div className="spot-depth">
+                          <span>Suitability Score:</span>
+                          <strong>{highlightedSite.suitability_score}/100</strong>
+                        </div>
+                        <div className="spot-depth">
+                          <span>Baseline Flood Risk:</span>
+                          <strong>{highlightedSite.flood_probability_pct}%</strong>
+                        </div>
+                        <div className="spot-depth">
+                          <span>Terrain Elevation:</span>
+                          <strong>{highlightedSite.elevation_m}m AMSL</strong>
+                        </div>
+                      </div>
+                    </Popup>
+                    <Tooltip direction="top" permanent>
+                      <span>{tagText}: Cell {highlightedSite.grid_id} (Score: {highlightedSite.suitability_score})</span>
+                    </Tooltip>
+                  </CircleMarker>
+                </>
+              );
+            })()}
+          </MapContainer>
+
+          {/* Floating Active Corridor Assessment Banner */}
+          {activeCorridorData && (
+            <div className="corridor-active-banner">
+              <div className="corridor-banner-info">
+                <span className="corridor-tag">Active Alignment Screening</span>
+                <strong>{activeCorridorData.alignment_name}</strong>
+                <span className="corridor-stat">
+                  Score: <strong>{activeCorridorData.feasibility_assessment.conflict_score}/100</strong> ({activeCorridorData.feasibility_assessment.classification})
+                </span>
+                <span className="corridor-stat">
+                  Structural Conflicts: <strong>{activeCorridorData.building_conflicts.intersected_count} buildings</strong>
+                </span>
+                <span className="corridor-stat">
+                  Displaced Area: <strong>{Math.round(activeCorridorData.building_conflicts.total_intersected_area_m2).toLocaleString()} m²</strong>
+                </span>
+              </div>
+              {onClearCorridor && (
+                <button
+                  type="button"
+                  className="corridor-clear-btn"
+                  onClick={onClearCorridor}
+                  title="Clear alignment overlay"
+                >
+                  Clear Overlay ✕
+                </button>
+              )}
+            </div>
+          )}
+
+          {/* Floating Active Site Recommendation Banner */}
+          {highlightedSite && (
+            <div className="site-active-banner">
+              <div className="site-banner-info">
+                <span className="site-tag">MCE Facility Recommendation</span>
+                <strong>Cell {highlightedSite.grid_id}</strong>
+                <span className="site-stat">
+                  Suitability Score: <strong>{highlightedSite.suitability_score}/100</strong>
+                </span>
+                <span className="site-stat">
+                  Flood Risk: <strong>{highlightedSite.flood_probability_pct}%</strong>
+                </span>
+                <span className="site-stat">
+                  Road Access: <strong>{Math.round(highlightedSite.road_length_m)}m</strong>
+                </span>
+              </div>
+              {onClearSite && (
+                <button
+                  type="button"
+                  className="site-clear-btn"
+                  onClick={onClearSite}
+                  title="Clear site highlight"
+                >
+                  Clear Highlight ✕
+                </button>
+              )}
+            </div>
+          )}
+
+          {/* Dynamic Map Legend Overlay */}
+          <div className="map-legend-card">
+            <span className="legend-title">
+              {activeLayer === "scenario"
+                ? "Dominant Scenario"
+                : activeLayer === "baseline"
+                  ? "Baseline Flood Risk"
+                  : activeLayer === "difference"
+                    ? `${selectedScenario} Delta`
+                    : `${activeLayer.toUpperCase()} Impact`}
+            </span>
+
+            {activeLayer === "scenario" && (
+              <div className="legend-items">
+                <div className="legend-row">
+                  <span className="legend-box" style={{ background: "#22d3ee" }}></span>
+                  <span>NDVI +20% (Vegetation)</span>
+                </div>
+                <div className="legend-row">
+                  <span className="legend-box" style={{ background: "#3b82f6" }}></span>
+                  <span>Road Density -20%</span>
+                </div>
+                <div className="legend-row">
+                  <span className="legend-box" style={{ background: "#7c5cff" }}></span>
+                  <span>Building Density -20%</span>
+                </div>
+              </div>
+            )}
+
+            {activeLayer === "baseline" && (
+              <div className="legend-items">
+                <div className="legend-row">
+                  <span className="legend-box" style={{ background: "#22d3ee" }}></span>
+                  <span>&lt; 15% (Low Risk)</span>
+                </div>
+                <div className="legend-row">
+                  <span className="legend-box" style={{ background: "#3b82f6" }}></span>
+                  <span>15% – 35% (Moderate Risk)</span>
+                </div>
+                <div className="legend-row">
+                  <span className="legend-box" style={{ background: "#7c5cff" }}></span>
+                  <span>35% – 55% (High Risk)</span>
+                </div>
+                <div className="legend-row">
+                  <span className="legend-box" style={{ background: "#f87171" }}></span>
+                  <span>&gt; 55% (Severe Hotspot)</span>
+                </div>
+              </div>
+            )}
+
+            {(activeLayer === "ndvi" ||
+              activeLayer === "road" ||
+              activeLayer === "building" ||
+              activeLayer === "difference") && (
+                <div className="legend-items">
+                  <div className="legend-row">
+                    <span className="legend-box" style={{ background: "#3b82f6" }}></span>
+                    <span>&lt; -5.0 pp (Strong Reduction)</span>
                   </div>
-                </Popup>
-                <Tooltip direction="top" permanent>
-                  <span>{tagText}: Cell {highlightedSite.grid_id} (Score: {highlightedSite.suitability_score})</span>
-                </Tooltip>
-              </CircleMarker>
-            </>
-          );
-        })()}
-      </MapContainer>
+                  <div className="legend-row">
+                    <span className="legend-box" style={{ background: "#22d3ee" }}></span>
+                    <span>-5.0 pp to 0 (Moderate Reduction)</span>
+                  </div>
+                  <div className="legend-row">
+                    <span className="legend-box" style={{ background: "#64748b" }}></span>
+                    <span>Neutral / Negligible</span>
+                  </div>
+                  <div className="legend-row">
+                    <span className="legend-box" style={{ background: "#f87171" }}></span>
+                    <span>&gt; 0 (Predicted Increase)</span>
+                  </div>
+                </div>
+              )}
 
-      {/* Floating Active Corridor Assessment Banner */}
-      {activeCorridorData && (
-        <div className="corridor-active-banner">
-          <div className="corridor-banner-info">
-            <span className="corridor-tag">Active Alignment Screening</span>
-            <strong>{activeCorridorData.alignment_name}</strong>
-            <span className="corridor-stat">
-              Score: <strong>{activeCorridorData.feasibility_assessment.conflict_score}/100</strong> ({activeCorridorData.feasibility_assessment.classification})
-            </span>
-            <span className="corridor-stat">
-              Structural Conflicts: <strong>{activeCorridorData.building_conflicts.intersected_count} buildings</strong>
-            </span>
-            <span className="corridor-stat">
-              Displaced Area: <strong>{Math.round(activeCorridorData.building_conflicts.total_intersected_area_m2).toLocaleString()} m²</strong>
-            </span>
-          </div>
-          {onClearCorridor && (
-            <button
-              type="button"
-              className="corridor-clear-btn"
-              onClick={onClearCorridor}
-              title="Clear alignment overlay"
-            >
-              Clear Overlay ✕
-            </button>
-          )}
-        </div>
-      )}
-
-      {/* Floating Active Site Recommendation Banner */}
-      {highlightedSite && (
-        <div className="site-active-banner">
-          <div className="site-banner-info">
-            <span className="site-tag">MCE Facility Recommendation</span>
-            <strong>Cell {highlightedSite.grid_id}</strong>
-            <span className="site-stat">
-              Suitability Score: <strong>{highlightedSite.suitability_score}/100</strong>
-            </span>
-            <span className="site-stat">
-              Flood Risk: <strong>{highlightedSite.flood_probability_pct}%</strong>
-            </span>
-            <span className="site-stat">
-              Road Access: <strong>{Math.round(highlightedSite.road_length_m)}m</strong>
-            </span>
-          </div>
-          {onClearSite && (
-            <button
-              type="button"
-              className="site-clear-btn"
-              onClick={onClearSite}
-              title="Clear site highlight"
-            >
-              Clear Highlight ✕
-            </button>
-          )}
-        </div>
-      )}
-
-      {/* Dynamic Map Legend Overlay */}
-      <div className="map-legend-card">
-        <span className="legend-title">
-          {activeLayer === "scenario"
-            ? "Dominant Scenario"
-            : activeLayer === "baseline"
-            ? "Baseline Flood Risk"
-            : activeLayer === "difference"
-            ? `${selectedScenario} Delta`
-            : `${activeLayer.toUpperCase()} Impact`}
-        </span>
-
-        {activeLayer === "scenario" && (
-          <div className="legend-items">
-            <div className="legend-row">
-              <span className="legend-box" style={{ background: "#22d3ee" }}></span>
-              <span>NDVI +20% (Vegetation)</span>
-            </div>
-            <div className="legend-row">
-              <span className="legend-box" style={{ background: "#3b82f6" }}></span>
-              <span>Road Density -20%</span>
-            </div>
-            <div className="legend-row">
-              <span className="legend-box" style={{ background: "#7c5cff" }}></span>
-              <span>Building Density -20%</span>
+            <div className="legend-indicators">
+              <div className="indicator-item">
+                <span className="indicator-line boundary"></span>
+                <span>K/East Boundary</span>
+              </div>
+              <div className="indicator-item">
+                <span className="indicator-dot flood"></span>
+                <span>BMC Flood Spot</span>
+              </div>
             </div>
           </div>
-        )}
-
-        {activeLayer === "baseline" && (
-          <div className="legend-items">
-            <div className="legend-row">
-              <span className="legend-box" style={{ background: "#22d3ee" }}></span>
-              <span>&lt; 15% (Low Risk)</span>
-            </div>
-            <div className="legend-row">
-              <span className="legend-box" style={{ background: "#3b82f6" }}></span>
-              <span>15% – 35% (Moderate Risk)</span>
-            </div>
-            <div className="legend-row">
-              <span className="legend-box" style={{ background: "#7c5cff" }}></span>
-              <span>35% – 55% (High Risk)</span>
-            </div>
-            <div className="legend-row">
-              <span className="legend-box" style={{ background: "#f87171" }}></span>
-              <span>&gt; 55% (Severe Hotspot)</span>
-            </div>
-          </div>
-        )}
-
-        {(activeLayer === "ndvi" ||
-          activeLayer === "road" ||
-          activeLayer === "building" ||
-          activeLayer === "difference") && (
-          <div className="legend-items">
-            <div className="legend-row">
-              <span className="legend-box" style={{ background: "#3b82f6" }}></span>
-              <span>&lt; -5.0 pp (Strong Reduction)</span>
-            </div>
-            <div className="legend-row">
-              <span className="legend-box" style={{ background: "#22d3ee" }}></span>
-              <span>-5.0 pp to 0 (Moderate Reduction)</span>
-            </div>
-            <div className="legend-row">
-              <span className="legend-box" style={{ background: "#64748b" }}></span>
-              <span>Neutral / Negligible</span>
-            </div>
-            <div className="legend-row">
-              <span className="legend-box" style={{ background: "#f87171" }}></span>
-              <span>&gt; 0 (Predicted Increase)</span>
-            </div>
-          </div>
-        )}
-
-        <div className="legend-indicators">
-          <div className="indicator-item">
-            <span className="indicator-line boundary"></span>
-            <span>K/East Boundary</span>
-          </div>
-          <div className="indicator-item">
-            <span className="indicator-dot flood"></span>
-            <span>BMC Flood Spot</span>
-          </div>
-        </div>
-      </div>
-      </>
+        </>
       )}
     </div>
   );
