@@ -1,13 +1,9 @@
 services:
   - type: web
     name: civora-ai
-    env: python
-    buildCommand: "npm --prefix frontend install && npm --prefix frontend run build && pip install -r requirements.txt"
-    startCommand: "python -m uvicorn backend.app.main:app --host 0.0.0.0 --port $PORT"
+    env: docker
+    dockerfilePath: Dockerfile
+    plan: free
     envVars:
-      - key: PYTHON_VERSION
-        value: 3.10.12
-      - key: NODE_VERSION
-        value: 20.18.0
       - key: VITE_CARTO_API_KEY
         sync: false

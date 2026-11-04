@@ -1,7 +1,15 @@
-# CIVORA AI Backend Dockerfile
+# Stage 1: Build React Frontend
+FROM node:20-alpine AS frontend-builder
+WORKDIR /app/frontend
+COPY frontend/package*.json ./
+RUN npm install
+COPY frontend/ ./
+RUN npm run build
+
+# Stage 2: Python Backend & Unified Production Server
 FROM python:3.11-slim
 
-# Install system dependencies needed for XGBoost, GDAL/PROJ and C-extensions
+# Install system dependencies needed for XGBoost and C-extensions
 RUN apt-get update && apt-get install -y --no-install-recommends \
     curl \
     libgomp1 \
@@ -9,23 +17,19 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 WORKDIR /app
 
-# Install Python dependencies first for caching
+# Install Python dependencies
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy all model files, datasets, and backend application code
+# Copy all project code, models, datasets, and GIS geometries
 COPY . .
 
-# Set Python path so `app` modules can be imported directly
+# Copy built frontend assets from Stage 1 into frontend/dist
+COPY --from=frontend-builder /app/frontend/dist /app/frontend/dist
+
 ENV PYTHONPATH=/app/backend
-ENV CIVORA_HOST=0.0.0.0
-ENV CIVORA_PORT=8000
+ENV PORT=8000
 
 EXPOSE 8000
 
-# Health check
-HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
-  CMD curl -f http://localhost:8000/ || exit 1
-
-CMD ["python", "-m", "uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
-
+CMD ["sh", "-c", "uvicorn backend.app.main:app --host 0.0.0.0 --port ${PORT:-8000}"]
