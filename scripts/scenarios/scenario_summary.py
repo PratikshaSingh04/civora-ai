@@ -1,3 +1,12 @@
+from pathlib import Path
+_REPO_ROOT = Path(__file__).resolve().parents[2]
+def _find_file(filename):
+    p = Path(filename)
+    if p.exists(): return str(p)
+    alt = _REPO_ROOT / filename
+    if alt.exists(): return str(alt)
+    return filename
+
 import pandas as pd
 import json
 

@@ -1,9 +1,10 @@
+import os
 import requests
 import csv
 
-API_KEY = "ca6a6a82611269912a4cc87d203df0fd1b5d0555fa1bb902d94502a5db380d85"
+API_KEY = os.getenv("OPENAQ_API_KEY", "")
 
-SENSOR_ID = 12442195
+SENSOR_ID = 12442196
 
 url = f"https://api.openaq.org/v3/sensors/{SENSOR_ID}/days"
 
@@ -52,7 +53,7 @@ while True:
 
         all_rows.append({
             "date": datetime_from.get("local"),
-            "pm10": item.get("value"),
+            "pm25": item.get("value"),
             "units": item.get("parameter", {}).get("units"),
             "latitude": 19.11074,
             "longitude": 72.86084
@@ -64,7 +65,7 @@ while True:
     params["page"] += 1
 
 
-output_file = "K_East_Chakala_PM10_Daily.csv"
+output_file = "K_East_Chakala_PM25_Daily.csv"
 
 with open(
     output_file,
@@ -77,7 +78,7 @@ with open(
         f,
         fieldnames=[
             "date",
-            "pm10",
+            "pm25",
             "units",
             "latitude",
             "longitude"

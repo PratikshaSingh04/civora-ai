@@ -1,3 +1,12 @@
+from pathlib import Path
+_REPO_ROOT = Path(__file__).resolve().parents[2]
+def _find_file(filename):
+    p = Path(filename)
+    if p.exists(): return str(p)
+    alt = _REPO_ROOT / filename
+    if alt.exists(): return str(alt)
+    return filename
+
 import pandas as pd
 import joblib
 
@@ -5,7 +14,7 @@ import joblib
 # 1. Load trained CIVORA flood model
 # -----------------------------------------
 
-model = joblib.load("CIVORA_Flood_XGBoost_Model.pkl")
+model = joblib.load(_find_file("CIVORA_Flood_XGBoost_Model.pkl"))
 
 print("CIVORA XGBoost model loaded successfully!")
 
@@ -14,7 +23,7 @@ print("CIVORA XGBoost model loaded successfully!")
 # 2. Load dataset
 # -----------------------------------------
 
-df = pd.read_csv("CIVORA_Flood_ML_Dataset_Final.csv")
+df = pd.read_csv(_find_file("CIVORA_Flood_ML_Dataset_Final.csv"))
 
 print("Flood dataset loaded successfully!")
 print("Dataset shape:", df.shape)

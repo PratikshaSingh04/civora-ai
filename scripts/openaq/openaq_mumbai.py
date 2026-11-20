@@ -1,6 +1,7 @@
+import os
 import requests
 
-API_KEY = "ca6a6a82611269912a4cc87d203df0fd1b5d0555fa1bb902d94502a5db380d85"
+API_KEY = os.getenv("OPENAQ_API_KEY", "")
 
 url = "https://api.openaq.org/v3/locations"
 
