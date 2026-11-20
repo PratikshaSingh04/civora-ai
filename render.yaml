@@ -4,6 +4,3 @@ services:
     env: docker
     dockerfilePath: Dockerfile
     plan: free
-    envVars:
-      - key: VITE_CARTO_API_KEY
-        sync: false
