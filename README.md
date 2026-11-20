@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🌊 CIVORA AI
+# CIVORA AI
 ### An Explainable AI-Powered Digital Twin Platform for Smarter Urban Flood Risk Planning
 **Case Study Area:** K/East Ward (Andheri East, Chakala, Saki Naka, Marol) — Mumbai, Maharashtra, India
 
